@@ -303,15 +303,187 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Botón flotante de WhatsApp
-  const whatsappFloating = document.querySelector('.whatsapp-floating');
-  if (whatsappFloating) {
-    whatsappFloating.addEventListener('click', () => {
+  // ===========================================================================
+  // 6. SIMULADOR INTERACTIVO DE WHATSAPP BOT (MODO DEMO)
+  // ===========================================================================
+  const waTriggerBtn = document.getElementById('waTriggerBtn');
+  const waChatWindow = document.getElementById('waChatWindow');
+  const waCloseBtn = document.getElementById('waCloseBtn');
+  const waBody = document.getElementById('waBody');
+  const waOptionsWrap = document.getElementById('waOptionsWrap');
+  const waTypingIndicator = document.getElementById('waTypingIndicator');
+  const waResetBtn = document.getElementById('waResetBtn');
+  const waInitialTime = document.getElementById('waInitialTime');
+
+  function getCurrentTimeStr() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes} ${ampm}`;
+  }
+
+  if (waInitialTime) {
+    waInitialTime.textContent = getCurrentTimeStr();
+  }
+
+  function toggleWaChat() {
+    if (!waChatWindow) return;
+    const isOpen = waChatWindow.classList.toggle('is-open');
+    waChatWindow.setAttribute('aria-hidden', !isOpen);
+
+    if (isOpen) {
       if (window.trackEvent) {
-        window.trackEvent('whatsapp_floating_clicked', {
-          source: 'floating_button'
+        window.trackEvent('whatsapp_bot_opened');
+      }
+      setTimeout(() => {
+        waBody.scrollTop = waBody.scrollHeight;
+      }, 100);
+    }
+  }
+
+  if (waTriggerBtn) {
+    waTriggerBtn.addEventListener('click', toggleWaChat);
+  }
+
+  if (waCloseBtn) {
+    waCloseBtn.addEventListener('click', toggleWaChat);
+  }
+
+  function appendUserMsg(text) {
+    const userMsg = document.createElement('div');
+    userMsg.className = 'wa-msg from-user';
+    userMsg.innerHTML = `${text}<span class="wa-time">${getCurrentTimeStr()}</span>`;
+    waBody.insertBefore(userMsg, waTypingIndicator);
+    waBody.scrollTop = waBody.scrollHeight;
+  }
+
+  function appendBotMsg(htmlContent, delay = 900, callback = null) {
+    waTypingIndicator.style.display = 'inline-flex';
+    waBody.scrollTop = waBody.scrollHeight;
+
+    setTimeout(() => {
+      waTypingIndicator.style.display = 'none';
+      const botMsg = document.createElement('div');
+      botMsg.className = 'wa-msg from-bot';
+      botMsg.innerHTML = `${htmlContent}<span class="wa-time">${getCurrentTimeStr()}</span>`;
+      waBody.insertBefore(botMsg, waTypingIndicator);
+      waBody.scrollTop = waBody.scrollHeight;
+
+      if (callback) callback();
+    }, delay);
+  }
+
+  function handleWaBotAction(action, btnText) {
+    appendUserMsg(btnText);
+    waOptionsWrap.style.display = 'none';
+
+    if (window.trackEvent) {
+      window.trackEvent('whatsapp_bot_action', {
+        action_name: action,
+        label: btnText
+      });
+    }
+
+    if (action === 'foto_guia') {
+      appendBotMsg(
+        `📸 <strong>¡Guía física procesada con IA!</strong><br><br>` +
+        `🏢 <em>Distribuidora Gloria S.A.</em><br>` +
+        `📦 <strong>24 Yogurts Fresa 1L (Lote 12/11)</strong><br>` +
+        `📅 Vencimiento: En 9 días.<br><br>` +
+        `🚦 <strong>Semáforo Preventivo AlDía:</strong> He programado tu alerta para pedir el canje 5 días antes con el repartidor. ¡Cero pérdidas aseguradas! ✅`,
+        1000,
+        showFollowUpOptions
+      );
+    } else if (action === 'ver_canjes') {
+      appendBotMsg(
+        `📦 <strong>Tus canjes prioritarios de esta semana:</strong><br><br>` +
+        `1. 🍞 <strong>Bimbo:</strong> 6 Panes Blanco (Lote 08/11) - Repartidor pasa <strong>MAÑANA</strong>.<br>` +
+        `2. 🧀 <strong>Laive:</strong> 3 Quesos Edam (Lote 11/11).<br><br>` +
+        `💡 <em>Sugerencia AlDía:</em> Separa estos productos en una caja hoy para entregárselos al camión sin demoras.`,
+        900,
+        showFollowUpOptions
+      );
+    } else if (action === 'remate_jamon') {
+      appendBotMsg(
+        `🏷️ <strong>Alerta de Remate Preventivo activada:</strong><br><br>` +
+        `• 8 Jamones 200g (Lote 06/11) vencen en 3 días.<br>` +
+        `• Precio normal: S/ 4.50<br>` +
+        `• <strong>Precio con 22% de descuento: S/ 3.50</strong><br><br>` +
+        `¡Al rematar hoy recuperas tu capital en vez de botarlo a la basura cuando caduque! 💰`,
+        900,
+        showFollowUpOptions
+      );
+    } else if (action === 'asesor_humano') {
+      appendBotMsg(
+        `👋 <strong>¡Excelente decisión!</strong><br><br>` +
+        `Un asesor especializado en bodegas y minimarkets de AlDía te atenderá de inmediato por WhatsApp.<br><br>` +
+        `<a href="https://wa.me/51999999999?text=Hola%20AlD%C3%ADa,%20vengo%20del%20demo%20del%20bot%20y%20quiero%20activar%20mi%20prueba%20gratis" target="_blank" rel="noopener" class="wa-real-chat-btn" style="margin-top:0.4rem; display:inline-flex;">` +
+        `Abrir chat de WhatsApp real 📲</a>`,
+        700,
+        showFollowUpOptions
+      );
+    }
+  }
+
+  function showFollowUpOptions() {
+    setTimeout(() => {
+      const followUp = document.createElement('div');
+      followUp.className = 'wa-options-wrap';
+      followUp.style.marginTop = '0.5rem';
+      followUp.innerHTML = `
+        <button type="button" class="wa-option-btn" style="background-color: #ffd54a; color: #0f3d2e; border-color: #0f3d2e;" data-open-modal data-modal-source="whatsapp_bot_cta">
+          ⭐ Quiero activar mi prueba gratis de 14 días
+        </button>
+        <button type="button" class="wa-option-btn" id="btnRestartOptions">
+          🔄 Probar otra opción del bot
+        </button>
+      `;
+      waBody.insertBefore(followUp, waTypingIndicator);
+      waBody.scrollTop = waBody.scrollHeight;
+
+      // Listener para el botón de prueba gratis dentro del bot
+      const btnTrial = followUp.querySelector('[data-open-modal]');
+      if (btnTrial) {
+        btnTrial.addEventListener('click', () => {
+          openLeadModal('whatsapp_bot_simulator');
         });
       }
+
+      // Listener para volver a ver las opciones
+      const btnRestart = followUp.querySelector('#btnRestartOptions');
+      if (btnRestart) {
+        btnRestart.addEventListener('click', resetWaChat);
+      }
+    }, 400);
+  }
+
+  function resetWaChat() {
+    const allMsgs = waBody.querySelectorAll('.wa-msg:not(:first-of-type)');
+    allMsgs.forEach(m => m.remove());
+    const extraWraps = waBody.querySelectorAll('.wa-options-wrap:not(#waOptionsWrap)');
+    extraWraps.forEach(w => w.remove());
+    waOptionsWrap.style.display = 'flex';
+    waBody.scrollTop = 0;
+
+    if (window.trackEvent) {
+      window.trackEvent('whatsapp_bot_reset');
+    }
+  }
+
+  if (waResetBtn) {
+    waResetBtn.addEventListener('click', resetWaChat);
+  }
+
+  // Delegación de eventos para las opciones del bot
+  if (waOptionsWrap) {
+    waOptionsWrap.querySelectorAll('.wa-option-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-action');
+        const text = btn.textContent.trim();
+        handleWaBotAction(action, text);
+      });
     });
   }
 });
