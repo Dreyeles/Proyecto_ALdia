@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlDía – Tu negocio y mercadería, siempre al día</title>
+  <meta name="description" content="Plataforma ágil para bodegas, minimarkets y ferreterías. Deja de botar plata por productos vencidos: canjea con tus proveedores y liquida a tiempo sin inventarios complicados.">
+  <meta name="keywords" content="vencimiento de productos, control de inventario bodega, canje proveedores bimbo gloria, FEFO minimarket, app bodegas peru NRUS">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- =========================================================================
+       GOOGLE ANALYTICS 4 (GA4) OFICIAL (ID: G-84W4NXCRFJ)
+       ========================================================================= -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-84W4NXCRFJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-84W4NXCRFJ');
+  </script>
+
+  <!-- Script personalizado de rastreo de eventos y micro-interacciones -->
+  <script src="analytics.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <!-- =======================================================================
+       SITE HEADER / NAVBAR
+       ======================================================================= -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#" class="brand-logo" aria-label="AlDía Inicio">
+        AL<span class="logo-dia">Día</span>
+      </a>
+
+      <nav aria-label="Navegación principal">
+        <ul class="nav-menu" id="primaryNav">
+          <li><a href="#como-funciona" class="nav-link">Cómo funciona</a></li>
+          <li><a href="#beneficios" class="nav-link">Beneficios</a></li>
+          <li><a href="#calculadora" class="nav-link">Calculadora</a></li>
+          <li><a href="#precios" class="nav-link">Precios</a></li>
+          <li><a href="#preguntas" class="nav-link">Preguntas</a></li>
+          <li>
+            <button class="btn-nav-register" data-open-modal data-modal-source="nav_button">
+              Registro
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       HERO SECTION (Replica exacta del diseño oficial)
+       ======================================================================= -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Columna Izquierda: Mensaje y Acciones -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            PARA BODEGAS Y MINIMARKETS
+          </div>
+
+          <h1 class="hero-title">
+            Deja de botar plata
+            por productos
+            <span class="text-vencidos">vencidos</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            AlDía te avisa a tiempo para canjear con tu proveedor o rematar antes de que venza. Sin inventarios complicados.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary-cta" data-open-modal data-modal-source="hero_primary_cta">
+              Quiero probarlo gratis
+            </button>
+            <a href="#como-funciona" class="btn-secondary-cta" id="btnHowItWorks">
+              Ver cómo funciona
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Mockup Visual con Decoraciones Geométricas -->
+        <div class="hero-visual" aria-hidden="true">
+          <!-- Círculos decorativos en capas de fondo -->
+          <div class="shape-circle-green"></div>
+          <div class="shape-circle-red"></div>
+          <div class="shape-circle-cream"></div>
+
+          <!-- Smartphone Mockup Interactivo -->
+          <div class="phone-mockup" id="phoneMockup">
+            <div class="phone-header">
+              <h2 class="phone-title">Alertas de hoy</h2>
+            </div>
+
+            <div class="phone-cards-stack">
+              <!-- Tarjeta 1: Canje con proveedor -->
+              <div class="phone-card card-canje" data-card-type="canje" title="Haz clic para simular la alerta de canje">
+                <div class="card-tag">CANJE CON PROVEEDOR</div>
+                <div class="card-product">Yogurt 1 L · lote 12/11</div>
+                <div class="card-expiry">Vence en 9 días</div>
+              </div>
+
+              <!-- Tarjeta 2: Remate preventivo -->
+              <div class="phone-card card-remate" data-card-type="remate" title="Haz clic para simular la sugerencia de remate">
+                <div class="card-tag">REMATE PREVENTIVO</div>
+                <div class="card-product">Jamón 200 g · lote 06/11</div>
+                <div class="card-expiry">Vence en 3 días</div>
+              </div>
+
+              <!-- Tarjeta 3: Plata salvada -->
+              <div class="phone-card card-salvada" data-card-type="salvada" title="Haz clic para ver el acumulado de ahorro">
+                <div class="card-tag">PLATA SALVADA</div>
+                <div class="card-amount">S/ 480 este mes</div>
+              </div>
+            </div>
+
+            <!-- Botón inferior interactivo del celular -->
+            <button class="phone-btn-stock" id="phoneBtnStock">
+              ¿Aún te queda stock?
+            </button>
+
+            <!-- Mensaje flotante al interactuar -->
+            <div class="phone-interactive-toast" id="phoneToast">
+              ¡Interactuaste con el demo!
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       STATEMENT BANNER (Transición del diseño)
+       ======================================================================= -->
+  <section class="statement-section">
+    <div class="container">
+      <p class="statement-text">
+        Cada mes, los pequeños comercios pierden dinero en productos que vencen sin que nadie lo note. AlDía te avisa a tiempo para que <mark class="highlight-yellow">recuperes esa plata</mark>.
+      </p>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       PROBLEM VS SOLUTION: El dolor del cuaderno vs AlDía
+       ======================================================================= -->
+  <section class="problem-section" id="problema">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">La Realidad de Tu Negocio</span>
+        <h2 class="section-title">El cuaderno no avisa cuando un yogurt está por vencer</h2>
+        <p class="section-subtitle">
+          En hora punta no puedes sentarte a llenar una hoja de Excel ni pistolear cada galleta que vendes.
+        </p>
+      </div>
+
+      <div class="comparison-grid">
+        <!-- Tarjeta: Con el método tradicional -->
+        <div class="comparison-card card-before">
+          <div class="comparison-card-badge">❌ El dolor de siempre</div>
+          <h3 class="comparison-card-title">Cuaderno manual o memoria</h3>
+          <ul class="comparison-list">
+            <li class="comparison-item">
+              <span class="icon">⚠️</span>
+              <span><strong>El repartidor vino ayer y encontraste el lote vencido hoy:</strong> Ya no te aceptan el canje y el costo lo asumes tú.</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon">📦</span>
+              <span><strong>Mercadería enterrada al fondo del anaquel:</strong> Al acomodar los nuevos productos, los antiguos quedan atrás hasta que huelen mal.</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon">⏳</span>
+              <span><strong>Sistemas ERP pesados que exigen cobrar pistoleando:</strong> En horas punta se hace una cola interminable de vecinos esperando ser atendidos.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tarjeta: Con AlDía -->
+        <div class="comparison-card card-after">
+          <div class="comparison-card-badge">✨ Con AlDía</div>
+          <h3 class="comparison-card-title">Alertas preventivas y cero fricción</h3>
+          <ul class="comparison-list">
+            <li class="comparison-item">
+              <span class="icon">📲</span>
+              <span><strong>Alerta antes de que venga el proveedor:</strong> Sabes exactamente qué cajas entregarle al distribuidor (Bimbo, Gloria, San Fernando) para canje al 100%.</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon">🏷️</span>
+              <span><strong>Zona de remate automática:</strong> Si faltan 3 días para vencer, te sugiere rematar con un 20% de descuento antes de perder todo el capital.</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon">⚡</span>
+              <span><strong>Sin frenar tu caja registradora:</strong> No tienes que registrar cada venta unitaria; la app descuenta existencias con regla FEFO inteligente.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       HOW IT WORKS (Los 3 Pilares Operativos de Baja Fricción)
+       ======================================================================= -->
+  <section class="how-section" id="como-funciona">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Simplicidad Total</span>
+        <h2 class="section-title">Cómo funciona en solo 3 pasos</h2>
+        <p class="section-subtitle">
+          Diseñado para dueños de bodega ocupados. No necesitas computadoras caras, solo tu celular.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Paso 1 -->
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon-wrap step-icon-1">📸</div>
+          <h3 class="step-title">Foto a la Guía o Factura</h3>
+          <p class="step-desc">
+            Cuando te dejen la mercadería, tómale una foto a la guía física con la cámara de tu celular o sube el PDF/XML de la factura electrónica.
+          </p>
+          <div class="step-pill">Cero tipeo manual con IA</div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon-wrap step-icon-2">🚦</div>
+          <h3 class="step-title">Semáforo Preventivo</h3>
+          <p class="step-desc">
+            AlDía clasifica tus lotes: te notifica con días de anticipación para pedir el canje gratuito al proveedor o activar un remate con descuento.
+          </p>
+          <div class="step-pill">Alertas a WhatsApp y celular</div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon-wrap step-icon-3">✅</div>
+          <h3 class="step-title">Salida FEFO y Check de 1 Min</h3>
+          <p class="step-desc">
+            Descuenta lotes según el más antiguo (FEFO). Una vez al día la app te hace una pregunta rápida de 10 segundos: <em>"¿Aún te queda stock de este lote?"</em>.
+          </p>
+          <div class="step-pill">Auditoría ágil sin invadir la caja</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       INTERACTIVE CALCULATOR: Calcula cuánta plata estás botando
+       ======================================================================= -->
+  <section class="calc-section" id="calculadora">
+    <div class="container">
+      <div class="calc-box">
+        <div class="calc-grid">
+          
+          <div class="calc-controls">
+            <span class="section-tag">Calculadora de Ahorro</span>
+            <h3>¿Cuánta plata puedes rescatar cada mes?</h3>
+            
+            <!-- Selector de Tipo de Negocio -->
+            <div class="control-group">
+              <label class="control-label">1. Elige tu tipo de comercio:</label>
+              <div class="business-selector">
+                <button type="button" class="btn-biz-type active" data-biz-name="Bodega de barrio" data-factor="0.045">
+                  🏪 Bodega
+                </button>
+                <button type="button" class="btn-biz-type" data-biz-name="Minimarket" data-factor="0.055">
+                  🛒 Minimarket
+                </button>
+                <button type="button" class="btn-biz-type" data-biz-name="Ferretería / Botica" data-factor="0.035">
+                  🔧 Ferretería / Botica
+                </button>
+              </div>
+            </div>
+
+            <!-- Slider de Compras Mensuales -->
+            <div class="control-group">
+              <div class="slider-wrap">
+                <div class="slider-val-display">
+                  <label class="control-label" for="monthlySalesSlider">2. Compra mensual aprox. a distribuidores:</label>
+                  <span class="slider-number" id="salesValueDisplay">S/ 12,000</span>
+                </div>
+                <input type="range" class="range-slider" id="monthlySalesSlider" min="3000" max="40000" step="1000" value="12000">
+              </div>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--color-text-muted);">
+              *Estimación basada en promedios reales de merma (3.5% - 5.5%) en pequeños comercios minoristas bajo régimen NRUS en Lima y provincias.
+            </p>
+          </div>
+
+          <!-- Resultado Estimado -->
+          <div class="calc-result-box">
+            <div class="calc-result-label">Plata que salvas con AlDía</div>
+            <div class="calc-amount-saved" id="monthlySavedDisplay">S/ 459</div>
+            <div class="calc-yearly-saved">
+              Al año rescatas aprox. <strong id="yearlySavedDisplay">S/ 5,508</strong> que antes terminaban en la basura.
+            </div>
+
+            <button type="button" class="btn-calc-cta" id="btnCalcCta">
+              Salvar esta plata en mi negocio
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       BENEFITS SECTION
+       ======================================================================= -->
+  <section class="benefits-section" id="beneficios">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Ventajas Reales</span>
+        <h2 class="section-title">Pensado 100% para la rutina del comerciante</h2>
+        <p class="section-subtitle">
+          Olvídate de capacitaciones complejas de 3 semanas. Empiezas a usar AlDía en 5 minutos.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">📱</div>
+          <h3 class="benefit-title">100% en tu Celular</h3>
+          <p class="benefit-desc">
+            No necesitas comprar computadoras, lectores de código de barras ni servidores costosos. Funciona en cualquier smartphone Android o iOS.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🤝</div>
+          <h3 class="benefit-title">Canjes Asegurados</h3>
+          <p class="benefit-desc">
+            Las empresas distribuidoras (Bimbo, Gloria, embutidos) ofrecen canje gratuito, pero con plazos estrictos. AlDía te garantiza llegar a tiempo.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🚀</div>
+          <h3 class="benefit-title">Sin Colas en Caja</h3>
+          <p class="benefit-desc">
+            Tus clientes no esperarán. La salida de inventario se gestiona mediante algoritmos predictivos y FEFO, sin necesidad de escanear cada caramelo.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🇵🇪</div>
+          <h3 class="benefit-title">Hecho para el Régimen NRUS</h3>
+          <p class="benefit-desc">
+            Alineado a las micro y pequeñas empresas familiares de Perú que buscan pagar cuotas justas y mantener orden contable sin estrés.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">🌱</div>
+          <h3 class="benefit-title">Cero Desperdicio de Alimentos</h3>
+          <p class="benefit-desc">
+            Alineado con el ODS 12 (Consumo y Producción Responsables). Cada yogurt o fiambre que no se vence es menos comida desperdiciada.
+          </p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3 class="benefit-title">Retorno de Inversión Inmediato</h3>
+          <p class="benefit-desc">
+            La suscripción mensual (S/ 39) se paga sola con el primer canje de 5 o 6 productos que logres salvar en el mes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       TESTIMONIALS / ARQUETIPOS DE CLIENTES
+       ======================================================================= -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Casos de Éxito</span>
+        <h2 class="section-title">Negocios que ya no botan mercadería</h2>
+        <p class="section-subtitle">
+          Comerciantes que transformaron su operación diaria con AlDía.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Testimonio 1: María Fernández -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "Antes botaba yogurts, panes de molde y quesos todas las semanas porque los repartidores venían justo un día antes de que me diera cuenta. Ahora AlDía me avisa a mi WhatsApp 8 días antes. Ya no pierdo ni un sol en canjes."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MF</div>
+            <div>
+              <div class="author-name">María Fernández (38 años)</div>
+              <div class="author-biz">Dueña de Minimarket "El Sol", Los Olivos</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 2: Daniel Ibarcena -->
+        <div class="testimonial-card">
+          <p class="testimonial-quote">
+            "El negocio de mi papá siempre se llevó con cuaderno y la silicona, masillas y pegamentos químicos se vencían en el almacén sin saberlo. Con AlDía le tomamos foto a las facturas electrónicas y el stock está siempre al día."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">DI</div>
+            <div>
+              <div class="author-name">Daniel Ibarcena (29 años)</div>
+              <div class="author-biz">Sucesor Familiar en Ferretería Los Andes, Lima Norte</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       PRICING SECTION (Micro-SaaS B2B S/39 - S/59)
+       ======================================================================= -->
+  <section class="pricing-section" id="precios">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Planes Claros</span>
+        <h2 class="section-title">Inversión justa para tu negocio</h2>
+        <p class="section-subtitle">
+          Pruébalo gratis por 14 días. Sin tarjeta de crédito ni contratos forzosos.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Plan 1: Bodega / Comercio Familiar -->
+        <div class="pricing-card">
+          <h3 class="plan-name">Plan Bodega</h3>
+          <p class="plan-desc">Para tiendas de abarrotes de barrio y negocios familiares de 1 local.</p>
+          <div class="plan-price-wrap">
+            <span class="price-currency">S/</span>
+            <span class="price-num">39</span>
+            <span class="price-period">/ mes</span>
+          </div>
+          <ul class="plan-features">
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>1 Local Comercial</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Foto de Guías Físicas (OCR Inteligente)</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Semáforo Preventivo de Vencimientos</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Alertas directas a tu WhatsApp</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Salida predictiva FEFO automática</span>
+            </li>
+          </ul>
+          <button class="btn-pricing" data-open-modal data-modal-source="pricing_plan_bodega">
+            Empezar prueba gratis
+          </button>
+        </div>
+
+        <!-- Plan 2: Minimarket Pro -->
+        <div class="pricing-card is-featured">
+          <div class="pricing-badge">MÁS POPULAR</div>
+          <h3 class="plan-name">Plan Minimarket</h3>
+          <p class="plan-desc">Para minimarkets con mayor rotación, embutidos, lácteos y múltiples ayudantes.</p>
+          <div class="plan-price-wrap">
+            <span class="price-currency">S/</span>
+            <span class="price-num">59</span>
+            <span class="price-period">/ mes</span>
+          </div>
+          <ul class="plan-features">
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Hasta 2 Locales o Almacenes</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Lectura directa de Facturas XML/PDF</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Generador de Carteles de Remate con Descuento</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Multiusuario (Dueño + 2 ayudantes)</span>
+            </li>
+            <li class="plan-feature-item">
+              <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Soporte prioritario por WhatsApp</span>
+            </li>
+          </ul>
+          <button class="btn-pricing" data-open-modal data-modal-source="pricing_plan_minimarket">
+            Empezar prueba gratis
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       FAQ SECTION (Preguntas Frecuentes)
+       ======================================================================= -->
+  <section class="faq-section" id="preguntas">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Dudas Frecuentes</span>
+        <h2 class="section-title">Resolvemos tus preguntas</h2>
+        <p class="section-subtitle">Todo lo que necesitas saber antes de empezar a usar AlDía.</p>
+      </div>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Tengo que escanear cada producto cuando atiendo a un cliente?</span>
+            <svg class="faq-icon-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-answer">
+            No, esa es la gran diferencia de AlDía. Sabemos que en hora punta no tienes tiempo de pistolear cada gaseosa o galleta. AlDía utiliza salida estimada por rotación y regla FEFO (primero en vencer, primero en salir), apoyada por checklists de un minuto.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cómo ingreso la mercadería que me llega del distribuidor?</span>
+            <svg class="faq-icon-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-answer">
+            Simplemente abres la app y le tomas una foto clara a la guía de remisión física que te entrega el repartidor. Nuestra IA lee automáticamente los productos, cantidades y lotes. Si recibes facturas electrónicas por correo o WhatsApp, puedes subir el PDF o XML en un clic.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cómo me ayuda a canjear con Bimbo, Gloria u otras marcas?</span>
+            <svg class="faq-icon-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-answer">
+            Los distribuidores exigen que el producto tenga al menos de 5 a 10 días de vida útil para aceptarte el canje por mercadería nueva. AlDía activa el Semáforo de Canje exactamente en esa ventana de tiempo para que cuando el camión de reparto llegue a tu tienda, ya tengas la caja de canjes lista y no pierdas tu dinero.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Necesito una computadora o internet de alta velocidad?</span>
+            <svg class="faq-icon-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-answer">
+            No necesitas computadoras ni equipos costosos. Funciona directamente en cualquier teléfono inteligente con conexión 3G/4G o WiFi. Consume una cantidad mínima de datos móviles.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cómo funciona la prueba gratuita de 14 días?</span>
+            <svg class="faq-icon-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-answer">
+            Te registras en menos de 1 minuto sin ingresar tarjetas de crédito ni datos bancarios. Tienes 14 días completos para probar la app en tu tienda. Al terminar el periodo, tú decides si continuar con el plan mensual de S/ 39 o cancelar sin compromiso.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       FINAL CALL TO ACTION BANNER
+       ======================================================================= -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="final-cta-box">
+        <h2 class="final-cta-title">Tu mercadería y tus ganancias, siempre al día</h2>
+        <p class="final-cta-sub">
+          Únete a cientos de bodegueros y comerciantes peruanos que ya erradicaron las mermas por vencimiento.
+        </p>
+        <button class="btn-primary-cta" data-open-modal data-modal-source="final_cta_banner" style="font-size: 1.15rem; padding: 1.1rem 2.4rem;">
+          Quiero probar AlDía gratis por 14 días
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       SITE FOOTER
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Columna Marca -->
+        <div class="footer-brand">
+          <div class="brand-logo">
+            AL<span class="logo-dia">Día</span>
+          </div>
+          <p class="footer-tagline">
+            <em>"Tu negocio y mercadería, siempre al día."</em><br>
+            Solución ágil de control de vencimientos y auditoría inteligente de inventarios para comercios MYPE en Perú.
+          </p>
+        </div>
+
+        <!-- Columna Enlaces -->
+        <div>
+          <h4 class="footer-col-title">Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Inicio</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#beneficios">Beneficios</a></li>
+            <li><a href="#calculadora">Calculadora de ahorro</a></li>
+            <li><a href="#precios">Planes y suscripción</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna Contacto & Legal -->
+        <div>
+          <h4 class="footer-col-title">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/51999999999" target="_blank" rel="noopener">WhatsApp de Soporte</a></li>
+            <li><a href="mailto:hola@aldia.pe">hola@aldia.pe</a></li>
+            <li>Lima, Perú</li>
+            <li>Régimen NRUS / MYPE</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 AlDía Perú. Todos los derechos reservados.</div>
+        <div>Comprometidos con el ODS 12 (Cero Desperdicio de Alimentos) y ODS 8 (Productividad MYPE).</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       LEAD CAPTURE MODAL (Registro & Prueba Gratis)
+       ======================================================================= -->
+  <div class="modal-overlay" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Cerrar ventana">
+        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Formulario de Registro -->
+      <form id="leadForm">
+        <input type="hidden" id="modalSource" value="web">
+        
+        <h3 class="modal-title" id="modalTitle">Empieza tu prueba gratis</h3>
+        <p class="modal-desc">
+          Te habilitaremos 14 días sin costo para tu negocio. Sin tarjeta de crédito.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label" for="leadName">Tu nombre completo</label>
+          <input type="text" id="leadName" class="form-input" placeholder="Ej. María Fernández" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="leadBizName">Nombre de tu comercio</label>
+          <input type="text" id="leadBizName" class="form-input" placeholder="Ej. Bodega San Martín" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="leadBizType">Tipo de negocio</label>
+          <select id="leadBizType" class="form-select" required>
+            <option value="Bodega de barrio">Bodega tradicional de abarrotes</option>
+            <option value="Minimarket">Minimarket / Autoservicio</option>
+            <option value="Ferretería">Ferretería / Materiales</option>
+            <option value="Botica / Farmacia">Botica o Farmacia</option>
+            <option value="Otro comercio">Otro comercio minorista</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="leadPhone">Número de WhatsApp (Perú)</label>
+          <input type="tel" id="leadPhone" class="form-input" placeholder="Ej. 987 654 321" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="leadDistrict">Distrito o Ciudad</label>
+          <input type="text" id="leadDistrict" class="form-input" placeholder="Ej. Los Olivos, Lima" required>
+        </div>
+
+        <button type="submit" class="btn-submit-lead">
+          Activar mi prueba gratuita de 14 días
+        </button>
+
+        <p class="modal-trust-note">
+          🔒 Tus datos están protegidos. No compartimos tu información con terceros.
+        </p>
+      </form>
+
+      <!-- Pantalla de Éxito posterior al registro -->
+      <div class="modal-success-state" id="modalSuccess">
+        <div class="modal-success-icon">
+          <svg width="34" height="34" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h3 class="modal-title" style="margin-bottom: 0.6rem;">¡Registro completado con éxito!</h3>
+        <p class="modal-desc" style="margin-bottom: 1.5rem;">
+          Hemos recibido los datos de tu comercio. Para activar tu cuenta de inmediato y comenzar a escanear tus primeras guías, haz clic en el botón de abajo:
+        </p>
+        <a href="https://wa.me/51999999999" id="whatsappDirectBtn" class="btn-submit-lead" style="display: block; text-align: center; text-decoration: none;" target="_blank" rel="noopener">
+          Continuar activación por WhatsApp 📲
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       FLOATING WHATSAPP CTA
+       ======================================================================= -->
+  <a href="https://wa.me/51999999999?text=Hola%20AlD%C3%ADa,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20plataforma" class="whatsapp-floating" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span>¿Dudas? WhatsApp</span>
+  </a>
+
+</body>
+</html>
+
