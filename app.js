@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!waChatWindow) return;
     const isOpen = waChatWindow.classList.toggle('is-open');
     waChatWindow.setAttribute('aria-hidden', !isOpen);
+    waChatWindow.style.display = isOpen ? 'flex' : 'none';
 
     if (isOpen) {
       if (window.trackEvent) {

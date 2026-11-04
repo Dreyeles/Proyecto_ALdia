@@ -1651,6 +1651,7 @@ button, input, select, textarea {
 
 /* Chat Window Box */
 .wa-chat-window {
+  display: none;
   width: 360px;
   max-width: calc(100vw - 32px);
   height: 520px;
@@ -1660,23 +1661,21 @@ button, input, select, textarea {
   background-size: 16px 16px;
   border-radius: 20px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
-  display: flex;
   flex-direction: column;
   overflow: hidden;
   margin-bottom: 12px;
   transform-origin: bottom right;
-  transform: scale(0.85);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
 }
 
 .wa-chat-window.is-open {
-  transform: scale(1);
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  display: flex !important;
+  animation: waPopupIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes waPopupIn {
+  from { opacity: 0; transform: scale(0.9) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* Header */
