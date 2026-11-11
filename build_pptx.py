@@ -1,7 +1,7 @@
 import os
 from pptx import Presentation
 from pptx.util import Inches, Pt
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.text import PP_ALIGN
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 
@@ -11,71 +11,78 @@ def create_presentation():
     prs.slide_height = Inches(7.5)
     blank_layout = prs.slide_layouts[6]
 
-    # Color Palette Constants (Turquesa Médico / Tech & Cyan Neón)
-    COLOR_BG = RGBColor(3, 13, 18)          # #030D12
-    COLOR_CARD = RGBColor(8, 27, 36)        # #081B24
-    COLOR_CARD_HL = RGBColor(12, 38, 51)    # #0C2633
-    COLOR_BORDER = RGBColor(19, 62, 79)     # #133E4F
-    COLOR_CYAN = RGBColor(45, 212, 191)     # #2DD4BF (Neon Cyan)
-    COLOR_TEAL = RGBColor(20, 184, 166)     # #14B8A6 (Teal/Turquesa)
-    COLOR_TEXT = RGBColor(248, 250, 252)    # #F8FAFC (White/Bright)
-    COLOR_MUTED = RGBColor(148, 163, 184)   # #94A3B8 (Slate Muted)
-    COLOR_AMBER = RGBColor(251, 191, 36)    # #FBBF24 (Gold)
-    COLOR_CORAL = RGBColor(244, 63, 94)     # #F43F5E (Coral)
-    COLOR_BLUE = RGBColor(56, 189, 248)     # #38BDF8 (Sky Blue)
+    # =========================================================================
+    # OFICIAL PALETTE: AlDía (https://dreyeles.github.io/Proyecto_ALdia/)
+    # =========================================================================
+    COLOR_YELLOW = RGBColor(255, 213, 74)     # #FFD54A (Hero Yellow)
+    COLOR_CREAM = RGBColor(255, 246, 224)     # #FFF6E0 (Background Cream)
+    COLOR_DARK = RGBColor(15, 61, 46)         # #0F3D2E (Forest Slate / Primary Dark)
+    COLOR_TERRACOTTA = RGBColor(201, 58, 34)  # #C93A22 (Terracotta / Red CTA)
+    COLOR_WHITE = RGBColor(255, 255, 255)     # #FFFFFF (Card Pure White)
+    COLOR_MUTED = RGBColor(82, 99, 93)        # #52635D (Text Muted)
+    COLOR_BORDER = RGBColor(218, 226, 222)    # Subtle border
+    COLOR_BORDER_DARK = RGBColor(15, 61, 46)  # Dark border
+    
+    # Pastel alert tags (AlDía Brand)
+    COLOR_CARD_RED = RGBColor(255, 217, 207)    # #FFD9CF (Canje)
+    COLOR_CARD_AMBER = RGBColor(255, 239, 168)  # #FFEFA8 (Remate)
+    COLOR_CARD_GREEN = RGBColor(207, 242, 222)  # #CFF2DE (Plata Salvada)
+    COLOR_ACCENT_GREEN = RGBColor(29, 180, 106) # #1DB46A (Vibrant Green)
 
     assets_dir = r"C:\Users\Drewg\OneDrive\Escritorio\AlDia_Landingpage\assets"
 
-    def apply_slide_base(slide, pretitle, title, timing, slide_num):
+    def apply_slide_base(slide, pretitle, title, timing, slide_num, bg_color=COLOR_CREAM, is_yellow_hero=False):
         # Background
         bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
         bg.fill.solid()
-        bg.fill.fore_color.rgb = COLOR_BG
+        bg.fill.fore_color.rgb = bg_color
         bg.line.fill.background()
 
-        # Header bar divider line
-        divider = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.35), Inches(11.733), Inches(0.02))
-        divider.fill.solid()
-        divider.fill.fore_color.rgb = COLOR_BORDER
-        divider.line.fill.background()
+        # Top Pretitle pill badge
+        badge = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(0.38), Inches(4.2), Inches(0.38))
+        badge.fill.solid()
+        badge.fill.fore_color.rgb = COLOR_DARK
+        badge.line.fill.background()
+        btf = badge.text_frame
+        btf.margin_top = btf.margin_bottom = btf.margin_left = btf.margin_right = 0
+        bp = btf.paragraphs[0]
+        bp.text = pretitle.upper()
+        bp.font.size = Pt(9.5)
+        bp.font.bold = True
+        bp.font.color.rgb = COLOR_YELLOW
+        bp.font.name = "Arial"
+        bp.alignment = PP_ALIGN.CENTER
 
-        # Header Text Box
-        header_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.35), Inches(9.5), Inches(0.95))
-        tf = header_box.text_frame
-        tf.word_wrap = True
-        tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
-
-        p_pre = tf.paragraphs[0]
-        p_pre.text = pretitle.upper()
-        p_pre.font.size = Pt(10)
-        p_pre.font.bold = True
-        p_pre.font.color.rgb = COLOR_CYAN
-        p_pre.font.name = "Arial"
-
-        p_title = tf.add_paragraph()
-        p_title.text = title
-        p_title.font.size = Pt(21)
-        p_title.font.bold = True
-        p_title.font.color.rgb = COLOR_TEXT
-        p_title.font.name = "Arial"
-
-        # Timing pill badge on top right
-        pill = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(10.6), Inches(0.55), Inches(1.9), Inches(0.4))
+        # Timing pill on top right
+        pill = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(10.6), Inches(0.38), Inches(1.9), Inches(0.38))
         pill.fill.solid()
-        pill.fill.fore_color.rgb = COLOR_CARD
-        pill.line.color.rgb = COLOR_BORDER
+        pill.fill.fore_color.rgb = COLOR_TERRACOTTA if is_yellow_hero else COLOR_WHITE
+        pill.line.color.rgb = COLOR_DARK
+        pill.line.width = Pt(1.5)
         pill_tf = pill.text_frame
         pill_p = pill_tf.paragraphs[0]
         pill_p.text = f"⏱️ {timing}"
-        pill_p.font.size = Pt(11)
+        pill_p.font.size = Pt(10.5)
         pill_p.font.bold = True
-        pill_p.font.color.rgb = COLOR_CYAN
+        pill_p.font.color.rgb = COLOR_WHITE if is_yellow_hero else COLOR_DARK
         pill_p.alignment = PP_ALIGN.CENTER
+
+        # Main Title Box
+        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.82), Inches(11.7), Inches(0.65))
+        ttf = title_box.text_frame
+        ttf.word_wrap = True
+        ttf.margin_left = ttf.margin_top = ttf.margin_right = ttf.margin_bottom = 0
+        tp = ttf.paragraphs[0]
+        tp.text = title
+        tp.font.size = Pt(22)
+        tp.font.bold = True
+        tp.font.color.rgb = COLOR_DARK
+        tp.font.name = "Arial"
 
         # Footer divider line
         f_div = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(6.9), Inches(11.733), Inches(0.015))
         f_div.fill.solid()
-        f_div.fill.fore_color.rgb = COLOR_BORDER
+        f_div.fill.fore_color.rgb = RGBColor(200, 210, 205) if bg_color == COLOR_CREAM else COLOR_DARK
         f_div.line.fill.background()
 
         # Footer Text
@@ -84,18 +91,18 @@ def create_presentation():
         ftf.word_wrap = True
         ftf.margin_left = ftf.margin_top = ftf.margin_right = ftf.margin_bottom = 0
         fp = ftf.paragraphs[0]
-        fp.text = "AlDía · Análisis de Datos Web · Zegel 2026-II  |  Grupo 7"
+        fp.text = "AlDía · Análisis de Datos Web · Zegel 2026-II  |  Grupo 7  |  https://dreyeles.github.io/Proyecto_ALdia/"
         fp.font.size = Pt(9.5)
-        fp.font.color.rgb = COLOR_MUTED
+        fp.font.color.rgb = COLOR_MUTED if bg_color == COLOR_CREAM else COLOR_DARK
 
         fp2 = ftf.add_paragraph()
         fp2.text = f"Lámina {slide_num:02d} / 10"
         fp2.font.size = Pt(9.5)
         fp2.font.bold = True
-        fp2.font.color.rgb = COLOR_CYAN
+        fp2.font.color.rgb = COLOR_TERRACOTTA
         fp2.alignment = PP_ALIGN.RIGHT
 
-    def add_card(slide, left, top, width, height, title, bg_color=COLOR_CARD, border_color=COLOR_BORDER):
+    def add_card(slide, left, top, width, height, title, bg_color=COLOR_WHITE, border_color=COLOR_BORDER_DARK, title_color=COLOR_DARK):
         card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
         card.fill.solid()
         card.fill.fore_color.rgb = bg_color
@@ -111,51 +118,54 @@ def create_presentation():
             p.text = title
             p.font.size = Pt(13)
             p.font.bold = True
-            p.font.color.rgb = COLOR_CYAN
+            p.font.color.rgb = title_color
             p.font.name = "Arial"
         return card
 
     # =========================================================================
-    # LÁMINA 1: PORTADA Y PRESENTACIÓN (0:00 - 0:45 min)
+    # LÁMINA 1: PORTADA OFICIAL ESTILO ALDÍA (HERO YELLOW) (0:00 - 0:45 min)
     # =========================================================================
     s1 = prs.slides.add_slide(blank_layout)
-    apply_slide_base(s1, "Evaluación Oficial · Sesión 05 · Avance 1 Grupal", 
-                     "Estrategia Digital y Analítica Web Multicanal", "0:00 – 0:45 min", 1)
+    apply_slide_base(s1, "PARA BODEGAS Y MINIMARKETS · EVALUACIÓN OFICIAL", 
+                     "Estrategia Digital y Analítica Web Multicanal", "0:00 – 0:45 min", 1, 
+                     bg_color=COLOR_YELLOW, is_yellow_hero=True)
 
-    # Left Column: Project Overview
-    add_card(s1, Inches(0.8), Inches(1.6), Inches(6.8), Inches(4.9), "🎯 Propósito del Proyecto")
-    tb1 = s1.shapes.add_textbox(Inches(1.05), Inches(2.25), Inches(6.3), Inches(4.0))
+    # Left Column: Project Hero Card
+    add_card(s1, Inches(0.8), Inches(1.6), Inches(7.0), Inches(5.0), "🛒 Proyecto AlDía (Micro-SaaS B2B)", 
+             bg_color=COLOR_WHITE, border_color=COLOR_DARK, title_color=COLOR_DARK)
+    tb1 = s1.shapes.add_textbox(Inches(1.05), Inches(2.25), Inches(6.5), Inches(4.1))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
 
     p = tf1.paragraphs[0]
-    p.text = "Despliegue y Telemetría Integral para el Aplicativo Móvil AlDía"
-    p.font.size = Pt(15)
+    p.text = "Deja de botar plata por productos vencidos"
+    p.font.size = Pt(17)
     p.font.bold = True
-    p.font.color.rgb = COLOR_TEXT
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     bullets_s1 = [
-        ("Landing Page en GitHub Pages:", " Arquitectura Jamstack de alta velocidad servida desde CDN global."),
+        ("Propuesta Central:", " AlDía te avisa a tiempo para canjear con tu proveedor o rematar antes de que venza. Sin inventarios complicados."),
+        ("Landing Page en GitHub Pages:", " Despliegue Jamstack oficial en https://dreyeles.github.io/Proyecto_ALdia/."),
         ("Google Analytics 4 Nativo:", " Conexión directa mediante gtag.js y capa dataLayer (ID: G-84W4NXCRFJ)."),
-        ("Atracción Social Multicanal:", " Fanpage oficial en Facebook para generar tráfico e impulsar el embudo."),
-        ("Rigor Metodológico:", " Definición, sustentación y comparativa analítica de KPIs entre la Web y Facebook.")
+        ("Atracción Social Multicanal:", " Fanpage oficial en Facebook ('AlDía Perú') para derivar tráfico al embudo.")
     ]
     for b_title, b_desc in bullets_s1:
         p = tf1.add_paragraph()
-        p.space_before = Pt(8)
+        p.space_before = Pt(7)
         run1 = p.add_run()
         run1.text = "• " + b_title
         run1.font.bold = True
-        run1.font.color.rgb = COLOR_CYAN
-        run1.font.size = Pt(11.5)
+        run1.font.color.rgb = COLOR_DARK
+        run1.font.size = Pt(11)
         run2 = p.add_run()
         run2.text = b_desc
         run2.font.color.rgb = COLOR_MUTED
-        run2.font.size = Pt(11.5)
+        run2.font.size = Pt(11)
 
     # Right Column: Evaluation Sheet Card
-    add_card(s1, Inches(7.8), Inches(1.6), Inches(4.7), Inches(4.9), "📋 Ficha Técnica de Evaluación", bg_color=COLOR_CARD_HL)
-    tb1_r = s1.shapes.add_textbox(Inches(8.05), Inches(2.3), Inches(4.2), Inches(4.0))
+    add_card(s1, Inches(8.0), Inches(1.6), Inches(4.5), Inches(5.0), "📋 Ficha Técnica Zegel", 
+             bg_color=COLOR_CREAM, border_color=COLOR_DARK, title_color=COLOR_DARK)
+    tb1_r = s1.shapes.add_textbox(Inches(8.25), Inches(2.25), Inches(4.0), Inches(4.1))
     tf1_r = tb1_r.text_frame
     tf1_r.word_wrap = True
 
@@ -163,10 +173,10 @@ def create_presentation():
         ("Institución:", "Zegel Ipae (Educación Superior)"),
         ("Curso:", "Análisis de Datos Web (Ciclo 2026-II)"),
         ("Hito Evaluativo:", "Avance 1 Grupal (Sesión 05)"),
-        ("Equipo:", "Grupo 7 (Integrantes Oficiales)"),
-        ("Producto:", "AlDía (Micro-SaaS para Bodegas)"),
-        ("Formato:", "Exposición 10-11 min + Preguntas"),
-        ("Infraestructura:", "GitHub Pages CDN + GA4 Nativo")
+        ("Equipo Evaluado:", "Grupo 7 (Integrantes Oficiales)"),
+        ("Eslogan Oficial:", "\"Tu negocio y mercadería, siempre al día\""),
+        ("Régimen Objetivo:", "Microcomercios NRUS (Perú)"),
+        ("Duración Total:", "10:30 – 11:00 min cronometrados")
     ]
     for i, (lbl, val) in enumerate(eval_items):
         p = tf1_r.paragraphs[0] if i == 0 else tf1_r.add_paragraph()
@@ -174,12 +184,12 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = lbl + " "
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_CYAN
-        r1.font.size = Pt(11)
+        r1.font.color.rgb = COLOR_TERRACOTTA
+        r1.font.size = Pt(10.5)
         r2 = p.add_run()
         r2.text = val
-        r2.font.color.rgb = COLOR_TEXT
-        r2.font.size = Pt(11)
+        r2.font.color.rgb = COLOR_DARK
+        r2.font.size = Pt(10.5)
 
     s1.notes_slide.notes_text_frame.text = (
         "LÁMINA 1 (0:00 - 0:45 min): Saludo formal, presentación de integrantes del Grupo 7, "
@@ -204,50 +214,46 @@ def create_presentation():
     p.text = "Problema Central en Pequeños Comercios:"
     p.font.bold = True
     p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_CORAL
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     p = tf2_l.add_paragraph()
     p.text = "Bodegas y minimarkets en Perú pierden S/ 350 - S/ 600 mensuales por mercadería que vence en anaquel y pérdida de la ventana de canje con proveedores (Bimbo, Gloria)."
-    p.font.size = Pt(11)
+    p.font.size = Pt(10.5)
     p.font.color.rgb = COLOR_MUTED
 
     p = tf2_l.add_paragraph()
-    p.space_before = Pt(8)
+    p.space_before = Pt(7)
     p.text = "Solución de Baja Fricción:"
     p.font.bold = True
     p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_DARK
 
     p = tf2_l.add_paragraph()
-    p.text = "No exige pistolear cada venta en caja. Automatiza ingresos por foto de guías de remisión (IA), activa un Semáforo Preventivo de canjes y descuenta lotes bajo regla FEFO."
-    p.font.size = Pt(11)
+    p.text = "Cero tipeo en caja. Visión computacional para registrar guías por foto, semáforo preventivo de canjes (7-15 días) y remate preventivo (3-5 días)."
+    p.font.size = Pt(10.5)
     p.font.color.rgb = COLOR_MUTED
 
-    p = tf2_l.add_paragraph()
-    p.space_before = Pt(8)
-    p.text = "Buyer Persona Objetivo:"
-    p.font.bold = True
-    p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_AMBER
-
-    p = tf2_l.add_paragraph()
-    p.text = "Dueños de bodegas y minimarkets (30-55 años, Régimen NRUS, urbanos en Lima y provincias)."
-    p.font.size = Pt(11)
-    p.font.color.rgb = COLOR_MUTED
+    # Alert Card pill tags simulation
+    p_box = tf2_l.add_paragraph()
+    p_box.space_before = Pt(8)
+    p_box.text = "Alertas del Asistente: CANJE CON PROVEEDOR | REMATE PREVENTIVO | PLATA SALVADA"
+    p_box.font.bold = True
+    p_box.font.size = Pt(9.5)
+    p_box.font.color.rgb = COLOR_ACCENT_GREEN
 
     # Right: The Funnel
-    add_card(s2, Inches(6.7), Inches(1.6), Inches(5.8), Inches(4.9), "🔻 Arquitectura del Embudo (Funnel)", bg_color=COLOR_CARD_HL)
+    add_card(s2, Inches(6.7), Inches(1.6), Inches(5.8), Inches(4.9), "🔻 Arquitectura del Embudo (Funnel)", bg_color=COLOR_WHITE)
     
     stages = [
-        ("Top of Funnel (ToFU) · Descubrimiento", "Fanpage en Facebook: Generar conciencia del dolor ('¿Cuánta plata botas al mes en productos vencidos?').", COLOR_BLUE, Inches(2.3)),
-        ("Middle of Funnel (MoFU) · Consideración", "Landing Page en GitHub Pages: Explicación de la solución, calculadora interactiva de ahorro y bot demo.", COLOR_TEAL, Inches(3.5)),
-        ("Bottom of Funnel (BoFU) · Conversión", "Clic en Botón CTA 'Descargar App / Prueba Gratis de 14 días' (Activación del Lead y Evento Clave en GA4).", COLOR_CYAN, Inches(4.7))
+        ("Top of Funnel (ToFU) · Descubrimiento", "Fanpage en Facebook: Generar conciencia del dolor ('¿Cuánta plata botas al mes en productos vencidos?').", COLOR_CARD_AMBER, Inches(2.3)),
+        ("Middle of Funnel (MoFU) · Consideración", "Landing Page en GitHub Pages: Explicación de la solución, calculadora interactiva de ahorro y bot demo.", COLOR_CARD_GREEN, Inches(3.5)),
+        ("Bottom of Funnel (BoFU) · Conversión", "Clic en Botón CTA 'Quiero probarlo gratis' / Activación de prueba de 14 días (Evento Clave en GA4).", COLOR_CARD_RED, Inches(4.7))
     ]
     for st_title, st_desc, st_color, top_pos in stages:
         box = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.95), top_pos, Inches(5.3), Inches(1.05))
         box.fill.solid()
-        box.fill.fore_color.rgb = COLOR_CARD
-        box.line.color.rgb = st_color
+        box.fill.fore_color.rgb = st_color
+        box.line.color.rgb = COLOR_DARK
         box.line.width = Pt(1.5)
 
         tb = s2.shapes.add_textbox(Inches(7.1), top_pos + Inches(0.08), Inches(5.0), Inches(0.9))
@@ -257,7 +263,7 @@ def create_presentation():
         p.text = st_title
         p.font.bold = True
         p.font.size = Pt(11)
-        p.font.color.rgb = st_color
+        p.font.color.rgb = COLOR_DARK
         p2 = tf.add_paragraph()
         p2.text = st_desc
         p2.font.size = Pt(9.5)
@@ -285,9 +291,9 @@ def create_presentation():
     p.text = "Servidor Cloud Global (Jamstack CDN):"
     p.font.bold = True
     p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_DARK
     p2 = tf3.add_paragraph()
-    p2.text = "Despliegue estático en GitHub Pages (dreyeles.github.io/Proyecto_ALdia/) con SSL HTTPS nativo. Carga en <800ms en celulares 3G/4G, alta disponibilidad 99.9% y cero límites de memoria PHP."
+    p2.text = "Despliegue oficial en https://dreyeles.github.io/Proyecto_ALdia/ con SSL HTTPS nativo. Carga en <800ms en celulares 3G/4G, alta disponibilidad 99.9% y cero límites de memoria PHP."
     p2.font.size = Pt(10.5)
     p2.font.color.rgb = COLOR_MUTED
 
@@ -302,7 +308,7 @@ def create_presentation():
     p_header.text = "Arquitectura Persuasiva AIDA:"
     p_header.font.bold = True
     p_header.font.size = Pt(12)
-    p_header.font.color.rgb = COLOR_AMBER
+    p_header.font.color.rgb = COLOR_TERRACOTTA
 
     for a_lbl, a_desc in aida_points:
         p = tf3.add_paragraph()
@@ -310,7 +316,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = "• " + a_lbl + " "
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_CYAN
+        r1.font.color.rgb = COLOR_DARK
         r1.font.size = Pt(10)
         r2 = p.add_run()
         r2.text = a_desc
@@ -344,7 +350,7 @@ def create_presentation():
     p.text = "¿Por qué Implementación Nativa de GA4?"
     p.font.bold = True
     p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_DARK
     p2 = tf4.add_paragraph()
     p2.text = "Integración directa de gtag.js y window.dataLayer en el código fuente. Elimina intermediarios y plugins pesados de CMS, garantizando máxima velocidad de carga (<800ms) y control granular de eventos."
     p2.font.size = Pt(10.5)
@@ -361,7 +367,7 @@ def create_presentation():
     p_header.text = "Pilares de la Telemetría:"
     p_header.font.bold = True
     p_header.font.size = Pt(12)
-    p_header.font.color.rgb = COLOR_AMBER
+    p_header.font.color.rgb = COLOR_TERRACOTTA
 
     for t_lbl, t_desc in tech_points:
         p = tf4.add_paragraph()
@@ -369,7 +375,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = "• " + t_lbl + " "
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_CYAN
+        r1.font.color.rgb = COLOR_DARK
         r1.font.size = Pt(10)
         r2 = p.add_run()
         r2.text = t_desc
@@ -403,7 +409,7 @@ def create_presentation():
     p.text = "Justificación del Canal:"
     p.font.bold = True
     p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_DARK
     p2 = tf5.add_paragraph()
     p2.text = "Facebook es la red principal donde interactúan dueños de bodegas y minimarkets en Perú, participando en grupos gremiales y comerciales de sus distritos."
     p2.font.size = Pt(10.5)
@@ -420,7 +426,7 @@ def create_presentation():
     p_header.text = "Configuración Operativa:"
     p_header.font.bold = True
     p_header.font.size = Pt(12)
-    p_header.font.color.rgb = COLOR_AMBER
+    p_header.font.color.rgb = COLOR_TERRACOTTA
 
     for f_lbl, f_desc in fb_points:
         p = tf5.add_paragraph()
@@ -428,7 +434,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = "• " + f_lbl + " "
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_CYAN
+        r1.font.color.rgb = COLOR_DARK
         r1.font.size = Pt(10)
         r2 = p.add_run()
         r2.text = f_desc
@@ -436,7 +442,7 @@ def create_presentation():
         r2.font.size = Pt(10)
 
     # Right: Facebook Mockup Visual
-    add_card(s5, Inches(6.9), Inches(1.6), Inches(5.6), Inches(4.9), "📱 Simulación Visual de la Fanpage", bg_color=COLOR_CARD_HL)
+    add_card(s5, Inches(6.9), Inches(1.6), Inches(5.6), Inches(4.9), "📱 Simulación Visual de la Fanpage", bg_color=COLOR_WHITE)
     tb5_fb = s5.shapes.add_textbox(Inches(7.15), Inches(2.3), Inches(5.1), Inches(4.0))
     tf5_fb = tb5_fb.text_frame
     tf5_fb.word_wrap = True
@@ -445,18 +451,18 @@ def create_presentation():
     p.text = "AlDía Perú – App para Bodegas"
     p.font.bold = True
     p.font.size = Pt(15)
-    p.font.color.rgb = COLOR_TEXT
+    p.font.color.rgb = COLOR_DARK
 
     p = tf5_fb.add_paragraph()
     p.text = "@aldia.pe  ·  Software de gestión comercial para minimarkets"
     p.font.size = Pt(10)
-    p.font.color.rgb = COLOR_BLUE
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     # Post simulation box
     post_box = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.15), Inches(3.2), Inches(5.1), Inches(2.9))
     post_box.fill.solid()
-    post_box.fill.fore_color.rgb = COLOR_CARD
-    post_box.line.color.rgb = COLOR_BORDER
+    post_box.fill.fore_color.rgb = COLOR_CREAM
+    post_box.line.color.rgb = COLOR_DARK
 
     tb_post = s5.shapes.add_textbox(Inches(7.35), Inches(3.3), Inches(4.7), Inches(2.7))
     tf_post = tb_post.text_frame
@@ -466,7 +472,7 @@ def create_presentation():
     p.text = "🚨 ¿Sabías que el 4.5% de tus ganancias se van a la basura en yogurts y embutidos vencidos?"
     p.font.bold = True
     p.font.size = Pt(11)
-    p.font.color.rgb = COLOR_TEXT
+    p.font.color.rgb = COLOR_DARK
 
     p = tf_post.add_paragraph()
     p.space_before = Pt(4)
@@ -476,10 +482,10 @@ def create_presentation():
 
     p = tf_post.add_paragraph()
     p.space_before = Pt(10)
-    p.text = "👉 Probar AlDía Gratis (dreyeles.github.io/Proyecto_ALdia/)"
+    p.text = "👉 Probar AlDía Gratis (https://dreyeles.github.io/Proyecto_ALdia/)"
     p.font.bold = True
-    p.font.size = Pt(11)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.size = Pt(10.5)
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     s5.notes_slide.notes_text_frame.text = (
         "LÁMINA 5 (4:15 - 5:30 min): Presentar la Fanpage de Facebook, la estrategia de contenidos "
@@ -499,7 +505,6 @@ def create_presentation():
     table_shape = s6.shapes.add_table(rows, cols, left, top, width, height)
     table = table_shape.table
 
-    # Column widths
     table.columns[0].width = Inches(2.6)
     table.columns[1].width = Inches(3.2)
     table.columns[2].width = Inches(4.2)
@@ -509,12 +514,12 @@ def create_presentation():
     for col_idx, h_text in enumerate(headers):
         cell = table.cell(0, col_idx)
         cell.fill.solid()
-        cell.fill.fore_color.rgb = COLOR_CARD_HL
+        cell.fill.fore_color.rgb = COLOR_DARK
         p = cell.text_frame.paragraphs[0]
         p.text = h_text
         p.font.bold = True
         p.font.size = Pt(11)
-        p.font.color.rgb = COLOR_CYAN
+        p.font.color.rgb = COLOR_YELLOW
 
     data_kpis = [
         ("Usuarios y Sesiones", "Total Users & Sessions", "Mide el volumen neto de bodegueros alcanzados y la frecuencia de retorno.", "Volumen base"),
@@ -529,19 +534,19 @@ def create_presentation():
             cell = table.cell(row_idx, col_idx)
             cell.fill.solid()
             if row_idx == 4: # KPI Maestro highlight
-                cell.fill.fore_color.rgb = RGBColor(12, 45, 40)
+                cell.fill.fore_color.rgb = COLOR_CARD_RED
             else:
-                cell.fill.fore_color.rgb = COLOR_CARD if row_idx % 2 == 1 else RGBColor(5, 18, 25)
+                cell.fill.fore_color.rgb = COLOR_WHITE if row_idx % 2 == 1 else COLOR_CREAM
             
             p = cell.text_frame.paragraphs[0]
             p.text = cell_value
             p.font.size = Pt(10)
             if col_idx == 0:
                 p.font.bold = True
-                p.font.color.rgb = COLOR_CYAN if row_idx == 4 else COLOR_TEXT
+                p.font.color.rgb = COLOR_TERRACOTTA if row_idx == 4 else COLOR_DARK
             elif col_idx == 3:
                 p.font.bold = True
-                p.font.color.rgb = COLOR_AMBER if row_idx == 4 else COLOR_CYAN
+                p.font.color.rgb = COLOR_TERRACOTTA if row_idx == 4 else COLOR_DARK
             else:
                 p.font.color.rgb = COLOR_MUTED
 
@@ -571,12 +576,12 @@ def create_presentation():
     for c_i, h in enumerate(h7):
         cell = t7.cell(0, c_i)
         cell.fill.solid()
-        cell.fill.fore_color.rgb = COLOR_CARD_HL
+        cell.fill.fore_color.rgb = COLOR_DARK
         p = cell.text_frame.paragraphs[0]
         p.text = h
         p.font.bold = True
         p.font.size = Pt(10)
-        p.font.color.rgb = COLOR_CYAN
+        p.font.color.rgb = COLOR_YELLOW
 
     fb_kpi_data = [
         ("Alcance (Reach)", "Cuentas únicas que vieron posts.", "Amplitud inicial del embudo (ToFU)."),
@@ -588,16 +593,16 @@ def create_presentation():
         for c_i, val in enumerate(r_val):
             cell = t7.cell(r_i, c_i)
             cell.fill.solid()
-            cell.fill.fore_color.rgb = RGBColor(12, 45, 55) if r_i == 4 else COLOR_CARD
+            cell.fill.fore_color.rgb = COLOR_CARD_AMBER if r_i == 4 else (COLOR_WHITE if r_i % 2 == 1 else COLOR_CREAM)
             p = cell.text_frame.paragraphs[0]
             p.text = val
             p.font.size = Pt(9.5)
-            p.font.color.rgb = COLOR_CYAN if r_i == 4 else (COLOR_TEXT if c_i == 0 else COLOR_MUTED)
+            p.font.color.rgb = COLOR_TERRACOTTA if r_i == 4 else (COLOR_DARK if c_i == 0 else COLOR_MUTED)
             if c_i == 0 or r_i == 4:
                 p.font.bold = True
 
     # Right: Vanity Metrics vs Real Value
-    add_card(s7, Inches(7.8), Inches(1.6), Inches(4.7), Inches(4.9), "⚖️ Criterio: Likes vs Clics Reales", bg_color=COLOR_CARD_HL)
+    add_card(s7, Inches(7.8), Inches(1.6), Inches(4.7), Inches(4.9), "⚖️ Criterio: Likes vs Clics Reales", bg_color=COLOR_WHITE)
     tb7_r = s7.shapes.add_textbox(Inches(8.05), Inches(2.25), Inches(4.2), Inches(4.0))
     tf7_r = tb7_r.text_frame
     tf7_r.word_wrap = True
@@ -606,14 +611,14 @@ def create_presentation():
     p.text = "Métricas de Vanidad vs Valor Real"
     p.font.bold = True
     p.font.size = Pt(13)
-    p.font.color.rgb = COLOR_TEXT
+    p.font.color.rgb = COLOR_DARK
 
     p = tf7_r.add_paragraph()
     p.space_before = Pt(8)
     p.text = "❌ Métrica de Vanidad:"
     p.font.bold = True
     p.font.size = Pt(11)
-    p.font.color.rgb = COLOR_CORAL
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     p = tf7_r.add_paragraph()
     p.text = "500 'Me gusta' en una publicación pueden lucir bien, pero no representan usuarios ni descargas de la aplicación."
@@ -625,7 +630,7 @@ def create_presentation():
     p.text = "✅ Métrica de Valor (CTR Saliente):"
     p.font.bold = True
     p.font.size = Pt(11)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_DARK
 
     p = tf7_r.add_paragraph()
     p.text = "40 comerciantes que hicieron clic en el enlace demuestran necesidad real, visitan la landing y activan el funnel de conversión."
@@ -637,7 +642,7 @@ def create_presentation():
     p.text = "🎯 Benchmark B2B: Outbound CTR de 1.5% a 3.2%."
     p.font.bold = True
     p.font.size = Pt(10.5)
-    p.font.color.rgb = COLOR_AMBER
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     s7.notes_slide.notes_text_frame.text = (
         "LÁMINA 7 (7:00 - 8:15 min): Explicar los KPIs de Facebook, desarmar métricas de vanidad (likes) "
@@ -666,7 +671,7 @@ def create_presentation():
     p.text = "Evidencia Empírica en GA4 (ID: G-84W4NXCRFJ):"
     p.font.bold = True
     p.font.size = Pt(12)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_DARK
 
     results = [
         ("8 Usuarios Activos:", " Registro simultáneo en tiempo real durante las pruebas de despliegue."),
@@ -680,7 +685,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = "• " + r_lbl + " "
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_TEXT
+        r1.font.color.rgb = COLOR_DARK
         r1.font.size = Pt(10)
         r2 = p.add_run()
         r2.text = r_desc
@@ -692,7 +697,7 @@ def create_presentation():
     p_comp.text = "Comparativa Multicanal:"
     p_comp.font.bold = True
     p_comp.font.size = Pt(12)
-    p_comp.font.color.rgb = COLOR_AMBER
+    p_comp.font.color.rgb = COLOR_TERRACOTTA
 
     p_comp_desc = tf8.add_paragraph()
     p_comp_desc.text = "Facebook aportó el 40% del flujo de entrada inicial (alto volumen, baja permanencia), mientras que la Landing Page retuvo el análisis profundo de la solución (conversión MoFU)."
@@ -728,7 +733,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = "✅ " + c_lbl + "\n"
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_CYAN
+        r1.font.color.rgb = COLOR_DARK
         r1.font.size = Pt(11)
         r2 = p.add_run()
         r2.text = c_desc
@@ -736,13 +741,13 @@ def create_presentation():
         r2.font.size = Pt(10)
 
     # Right: Next Steps (Avance 2)
-    add_card(s9, Inches(6.9), Inches(1.6), Inches(5.6), Inches(4.9), "🚀 Hoja de Ruta para el Avance 2", bg_color=COLOR_CARD_HL)
+    add_card(s9, Inches(6.9), Inches(1.6), Inches(5.6), Inches(4.9), "🚀 Hoja de Ruta para el Avance 2", bg_color=COLOR_WHITE)
     tb9_r = s9.shapes.add_textbox(Inches(7.15), Inches(2.25), Inches(5.1), Inches(4.0))
     tf9_r = tb9_r.text_frame
     tf9_r.word_wrap = True
 
     next_steps = [
-        ("Pruebas A/B en el Botón CTA:", "Experimentar con el contraste de color (Terracota vs Cian) y copy ('Descargar App' vs 'Calcular mi ahorro gratis') para optimizar la tasa de conversión."),
+        ("Pruebas A/B en el Botón CTA:", "Experimentar con el contraste de color (Terracota vs Amarillo) y copy ('Quiero probarlo gratis' vs 'Calcular mi ahorro') para optimizar la conversión."),
         ("Dashboard Integral en Looker Studio:", "Construir un cuadro de mando automatizado conectando las APIs de Google Analytics 4 y Meta Facebook Insights en un solo reporte visual."),
         ("Segmentación de Audiencia:", "Analizar la conversión discriminada por distrito y tipo de dispositivo móvil (Android vs iOS).")
     ]
@@ -752,7 +757,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = "🔹 " + n_lbl + "\n"
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_AMBER
+        r1.font.color.rgb = COLOR_TERRACOTTA
         r1.font.size = Pt(11)
         r2 = p.add_run()
         r2.text = n_desc
@@ -765,14 +770,16 @@ def create_presentation():
     )
 
     # =========================================================================
-    # LÁMINA 10: CIERRE Y RONDA DE PREGUNTAS (10:30 - 11:00 min)
+    # LÁMINA 10: CIERRE Y RONDA DE PREGUNTAS (HERO YELLOW) (10:30 - 11:00 min)
     # =========================================================================
     s10 = prs.slides.add_slide(blank_layout)
-    apply_slide_base(s10, "Sustentación Final · Ronda de Preguntas", 
-                     "Cierre de Exposición y Ronda de Preguntas", "10:30 – 11:00 min", 10)
+    apply_slide_base(s10, "SUSTENTACIÓN FINAL · RONDA DE PREGUNTAS", 
+                     "Cierre de Exposición y Ronda de Preguntas", "10:30 – 11:00 min", 10,
+                     bg_color=COLOR_YELLOW, is_yellow_hero=True)
 
     # Left: Formal Closing
-    add_card(s10, Inches(0.8), Inches(1.6), Inches(4.8), Inches(4.9), "🤝 Agradecimiento")
+    add_card(s10, Inches(0.8), Inches(1.6), Inches(4.8), Inches(4.9), "🤝 Agradecimiento",
+             bg_color=COLOR_WHITE, border_color=COLOR_DARK, title_color=COLOR_DARK)
     tb10_l = s10.shapes.add_textbox(Inches(1.05), Inches(2.25), Inches(4.3), Inches(4.0))
     tf10_l = tb10_l.text_frame
     tf10_l.word_wrap = True
@@ -781,7 +788,7 @@ def create_presentation():
     p.text = "¡Muchas Gracias por su Atención!"
     p.font.bold = True
     p.font.size = Pt(16)
-    p.font.color.rgb = COLOR_TEXT
+    p.font.color.rgb = COLOR_DARK
 
     p = tf10_l.add_paragraph()
     p.space_before = Pt(10)
@@ -794,10 +801,11 @@ def create_presentation():
     p.text = "Quedamos a disposición del docente para responder las preguntas de sustentación técnica."
     p.font.bold = True
     p.font.size = Pt(11.5)
-    p.font.color.rgb = COLOR_CYAN
+    p.font.color.rgb = COLOR_TERRACOTTA
 
     # Right: Prepared Answers to Typical Questions
-    add_card(s10, Inches(5.9), Inches(1.6), Inches(6.6), Inches(4.9), "🛡️ Respuestas Técnicas Preparadas", bg_color=COLOR_CARD_HL)
+    add_card(s10, Inches(5.9), Inches(1.6), Inches(6.6), Inches(4.9), "🛡️ Respuestas Técnicas Preparadas", 
+             bg_color=COLOR_WHITE, border_color=COLOR_DARK, title_color=COLOR_DARK)
     tb10_r = s10.shapes.add_textbox(Inches(6.15), Inches(2.2), Inches(6.1), Inches(4.1))
     tf10_r = tb10_r.text_frame
     tf10_r.word_wrap = True
@@ -816,7 +824,7 @@ def create_presentation():
         r1 = p.add_run()
         r1.text = q + "\n"
         r1.font.bold = True
-        r1.font.color.rgb = COLOR_CYAN
+        r1.font.color.rgb = COLOR_TERRACOTTA
         r1.font.size = Pt(10)
         r2 = p.add_run()
         r2.text = a
@@ -830,7 +838,7 @@ def create_presentation():
 
     output_path = r"C:\Users\Drewg\OneDrive\Escritorio\AlDia_Landingpage\Presentacion_Avance1_Analisis_Datos_Web.pptx"
     prs.save(output_path)
-    print(f"Presentation saved successfully to: {output_path}")
+    print(f"AlDia-branded presentation saved successfully to: {output_path}")
 
 if __name__ == "__main__":
     create_presentation()

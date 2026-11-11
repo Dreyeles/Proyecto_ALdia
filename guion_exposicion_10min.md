@@ -219,3 +219,14 @@
 > 1. * **Fricción de velocidad móvil:** Hipótesis de que la página tarda más de 3 segundos en cargar en los celulares de los bodegueros. **Solución:** Comprimir activos a WebP, minificar CSS/JS y habilitar almacenamiento en caché.*
 > 2. * **Desalineación entre el anuncio y la landing (Message Mismatch):** Si la publicación de Facebook promete una cosa y el titular de la web habla de otra, el usuario se siente engañado y abandona. **Solución:** Unificar el copy de Facebook con el titular del Hero Section.*
 > 3. * **Falta de claridad en el CTA:** Si el botón no destaca visualmente o exige demasiados pasos iniciales. **Solución:** Reubicar el botón CTA más arriba ('Above the fold'), cambiar el contraste de color a nuestro tono Terracota/Cian y reducir los campos del formulario de registro a solo nombre y WhatsApp.*"
+
+---
+
+### Pregunta 4 del Docente (Pregunta Trampa / Técnica sobre GA4):
+> *"En la captura de pantalla de su Google Analytics 4 se observa un banner que dice: 'Todavía no se han recibido datos de tu sitio web', pero al mismo tiempo el widget de tiempo real muestra 8 usuarios activos. ¿Por qué ocurre esta discrepancia técnica?"*
+
+**Respuesta del estudiante (Demostración de dominio avanzado en Analítica Digital):**
+> *"Excelente observación, profesor. Esto se debe a la **arquitectura de doble procesamiento de Google Analytics 4**:*
+> 1. * **Capa de Tiempo Real (Streaming Data):** Opera mediante eventos en tiempo real recibidos por el endpoint de `gtag.js`. Es por eso que el panel de los últimos 30 minutos ya registra con éxito a nuestros **8 usuarios activos de prueba** (de Perú, Alemania y Estados Unidos) interactuando con la landing.*
+> 2. * **Capa de Informes Estándar (Batch ETL / Data Warehouse):** A diferencia de Universal Analytics, GA4 procesa los informes históricos estándar mediante trabajos por lotes que toman entre **24 y 48 horas de latencia** para consolidar dimensiones, atribuir canales y validar modelos de datos. En cuanto se cumpla el primer ciclo de procesamiento diario, el aviso del panel principal desaparece automáticamente y se pueblan las gráficas históricas.*
+> *Esta diferencia confirma que nuestra telemetría está 100% activa y transmitiendo eventos sin errores.*"
