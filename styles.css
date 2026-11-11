@@ -40,7 +40,9 @@
 }
 
 /* Reset & Base Styles */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -61,7 +63,8 @@ body {
   overflow-x: hidden;
 }
 
-img, svg {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -71,7 +74,10 @@ a {
   text-decoration: none;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
 }
 
@@ -1406,7 +1412,8 @@ button, input, select, textarea {
   color: var(--color-primary-dark);
 }
 
-.form-input, .form-select {
+.form-input,
+.form-select {
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1.5px solid var(--color-border-subtle);
@@ -1416,7 +1423,8 @@ button, input, select, textarea {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.form-input:focus, .form-select:focus {
+.form-input:focus,
+.form-select:focus {
   border-color: var(--color-primary-dark);
   box-shadow: 0 0 0 3px rgba(15, 61, 46, 0.1);
 }
@@ -1522,7 +1530,12 @@ button, input, select, textarea {
     justify-content: center;
   }
 
-  .comparison-grid, .steps-grid, .benefits-grid, .testimonials-grid, .pricing-grid, .calc-grid {
+  .comparison-grid,
+  .steps-grid,
+  .benefits-grid,
+  .testimonials-grid,
+  .pricing-grid,
+  .calc-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1644,9 +1657,20 @@ button, input, select, textarea {
 }
 
 @keyframes pulseDot {
-  0% { opacity: 0.4; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.25); }
-  100% { opacity: 0.4; transform: scale(0.9); }
+  0% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
 }
 
 /* Chat Window Box */
@@ -1674,8 +1698,15 @@ button, input, select, textarea {
 }
 
 @keyframes waPopupIn {
-  from { opacity: 0; transform: scale(0.9) translateY(15px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Header */
@@ -1785,8 +1816,15 @@ button, input, select, textarea {
 }
 
 @keyframes fadeInMsg {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .wa-msg.from-bot {
@@ -1870,12 +1908,25 @@ button, input, select, textarea {
   animation: typingBounce 1.2s infinite;
 }
 
-.wa-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.wa-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+.wa-typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.wa-typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 @keyframes typingBounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-4px); }
+
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-4px);
+  }
 }
 
 /* Footer / Action Bar */

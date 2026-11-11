@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avance 1: Estrategia Digital y Analítica Web Multicanal – AlDía (Zegel 2026-II)</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       THEME VARIABLES - TURQUESA MÉDICO / TECH & CIAN NEÓN
+       ========================================================================== */
+    :root {
+      --bg-dark: #030d12;
+      --bg-card: #081b24;
+      --bg-card-hover: #0c2633;
+      --border-card: #133e4f;
+      --border-glow: rgba(45, 212, 191, 0.35);
+      
+      --cyan-neon: #2dd4bf;
+      --teal-primary: #14b8a6;
+      --teal-dark: #0f766e;
+      --accent-coral: #f43f5e;
+      --accent-amber: #fbbf24;
+      --accent-blue: #38bdf8;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --slide-width: 1280px;
+      --slide-height: 720px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 9999px;
+
+      --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.45);
+      --shadow-neon: 0 0 20px rgba(45, 212, 191, 0.25);
+    }
+
+    /* Light high contrast theme */
+    body.theme-light {
+      --bg-dark: #f0fdfa;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --border-card: #cbd5e1;
+      --border-glow: rgba(20, 184, 166, 0.4);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --cyan-neon: #0d9488;
+      --teal-primary: #0f766e;
+    }
+
+    /* Cyberpunk high neon theme */
+    body.theme-cyber {
+      --bg-dark: #020617;
+      --bg-card: #090d16;
+      --border-card: #1e293b;
+      --border-glow: rgba(56, 189, 248, 0.5);
+      --cyan-neon: #00f0ff;
+      --teal-primary: #0284c7;
+      --accent-coral: #ff0055;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       TOP CONTROL BAR
+       ========================================================================== */
+    .top-toolbar {
+      height: 52px;
+      background: rgba(8, 27, 36, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .toolbar-left, .toolbar-center, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--cyan-neon);
+      background: rgba(45, 212, 191, 0.1);
+      border: 1px solid rgba(45, 212, 191, 0.25);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.03em;
+    }
+
+    .project-badge .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan-neon);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan-neon);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .course-title-subtle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .timer-display {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      background: rgba(3, 13, 18, 0.8);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-card);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .timer-display.warning {
+      color: var(--accent-amber);
+      border-color: var(--accent-amber);
+    }
+
+    .timer-display.danger {
+      color: var(--accent-coral);
+      border-color: var(--accent-coral);
+      animation: pulse 1s infinite;
+    }
+
+    .btn-tool {
+      background: rgba(19, 62, 79, 0.4);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-tool:hover {
+      background: var(--teal-primary);
+      color: #030d12;
+      border-color: var(--cyan-neon);
+      box-shadow: 0 0 12px rgba(45, 212, 191, 0.4);
+    }
+
+    .btn-tool.active {
+      background: var(--cyan-neon);
+      color: #030d12;
+      border-color: var(--cyan-neon);
+      font-weight: 800;
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .slide-counter strong {
+      color: var(--cyan-neon);
+    }
+
+    /* Progress bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 3px;
+      background: rgba(19, 62, 79, 0.3);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal-primary), var(--cyan-neon));
+      width: 10%;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 10px var(--cyan-neon);
+    }
+
+    /* ==========================================================================
+       VIEWPORT & SLIDE STACK
+       ========================================================================== */
+    .presentation-viewport {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 1.5rem;
+      background: radial-gradient(circle at 50% 20%, rgba(20, 184, 166, 0.07) 0%, transparent 70%);
+    }
+
+    .slide-container {
+      width: var(--slide-width);
+      height: var(--slide-height);
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97) translateY(12px);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    /* Ambient background grid inside slide */
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(19, 62, 79, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(19, 62, 79, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(19, 62, 79, 0.6);
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .slide-header-left {
+      max-width: 80%;
+    }
+
+    .slide-pretitle {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan-neon);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .slide-title {
+      font-size: 1.85rem;
+      font-weight: 850;
+      color: var(--text-main);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .slide-title .highlight {
+      color: var(--cyan-neon);
+      text-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
+    }
+
+    .slide-timing-pill {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(19, 62, 79, 0.5);
+      border: 1px solid var(--border-card);
+      color: var(--text-muted);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+
+    /* Slide Body */
+    .slide-body {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(19, 62, 79, 0.4);
+      padding-top: 0.85rem;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .slide-footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .slide-footer-brand span {
+      color: var(--cyan-neon);
+    }
+
+    /* ==========================================================================
+       CONTENT COMPONENTS (Cards, Grids, Badges, Tables)
+       ========================================================================== */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+      height: 100%;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+      height: 100%;
+    }
+
+    .content-box {
+      background: rgba(3, 13, 18, 0.65);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .content-box:hover {
+      border-color: var(--cyan-neon);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .content-box.highlight {
+      border-color: var(--teal-primary);
+      background: rgba(15, 118, 110, 0.08);
+    }
+
+    .box-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .box-p {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .box-p strong {
+      color: var(--text-main);
+    }
+
+    /* List items inside box */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.84rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    .feature-item .icon {
+      color: var(--cyan-neon);
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-weight: 800;
+    }
+
+    .feature-item strong {
+      color: var(--text-main);
+    }
+
+    /* KPI Comparison Table */
+    .kpi-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.82rem;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-card);
+    }
+
+    .kpi-table th {
+      background: rgba(19, 62, 79, 0.6);
+      color: var(--cyan-neon);
+      padding: 0.75rem 0.85rem;
+      text-align: left;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .kpi-table td {
+      padding: 0.7rem 0.85rem;
+      border-bottom: 1px solid rgba(19, 62, 79, 0.3);
+      color: var(--text-muted);
+      background: rgba(3, 13, 18, 0.4);
+    }
+
+    .kpi-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .kpi-table tr:hover td {
+      background: rgba(45, 212, 191, 0.06);
+    }
+
+    .kpi-star {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--accent-amber);
+      font-weight: 800;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .formula-tag {
+      font-family: var(--font-mono);
+      background: rgba(19, 62, 79, 0.7);
+      color: #38bdf8;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.76rem;
+      display: inline-block;
+    }
+
+    /* Image Showcase Frame */
+    .image-showcase {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-card);
+      background: #030d12;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-showcase img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .image-showcase:hover img {
+      transform: scale(1.02);
+    }
+
+    .image-showcase .caption-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(3, 13, 18, 0.95));
+      padding: 0.8rem 1rem;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Funnel diagram */
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .funnel-stage {
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border-card);
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .funnel-stage:hover {
+      transform: translateX(6px);
+    }
+
+    .funnel-tofu {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), rgba(3, 13, 18, 0.8));
+      border-color: #38bdf8;
+    }
+
+    .funnel-mofu {
+      background: linear-gradient(90deg, rgba(20, 184, 166, 0.15), rgba(3, 13, 18, 0.8));
+      border-color: var(--teal-primary);
+    }
+
+    .funnel-bofu {
+      background: linear-gradient(90deg, rgba(45, 212, 191, 0.22), rgba(3, 13, 18, 0.9));
+      border-color: var(--cyan-neon);
+      box-shadow: var(--shadow-neon);
+    }
+
+    .funnel-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .funnel-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Q&A Accordion Cards for Slide 10 */
+    .qa-card {
+      background: rgba(3, 13, 18, 0.7);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.65rem;
+      transition: border-color 0.2s;
+    }
+
+    .qa-card:hover {
+      border-color: var(--cyan-neon);
+    }
+
+    .qa-q {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .qa-a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       SPEAKER NOTES DRAWER (PRESS 'S')
+       ========================================================================== */
+    .speaker-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 250px;
+      background: rgba(4, 18, 25, 0.96);
+      backdrop-filter: blur(16px);
+      border-top: 2px solid var(--cyan-neon);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .speaker-drawer.is-open {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      padding: 0.6rem 1.5rem;
+      background: rgba(19, 62, 79, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-card);
+      flex-shrink: 0;
+    }
+
+    .drawer-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .drawer-body {
+      flex: 1;
+      padding: 1.25rem 1.75rem;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      font-family: var(--font-sans);
+    }
+
+    .drawer-body p {
+      margin-bottom: 0.75rem;
+    }
+
+    .drawer-body strong {
+      color: var(--cyan-neon);
+    }
+
+    .drawer-body .cue {
+      background: rgba(244, 63, 94, 0.15);
+      border-left: 3px solid var(--accent-coral);
+      padding: 0.3rem 0.65rem;
+      border-radius: 0 4px 4px 0;
+      color: #fda4af;
+      font-size: 0.84rem;
+      font-family: var(--font-mono);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    /* Navigation overlay arrows on sides */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(8, 27, 36, 0.7);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      transition: all 0.2s ease;
+      opacity: 0.4;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+      background: var(--teal-primary);
+      color: #030d12;
+      border-color: var(--cyan-neon);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-arrow.prev { left: 1rem; }
+    .nav-arrow.next { right: 1rem; }
+
+    /* Responsive scaling for viewport */
+    @media (max-width: 1366px) {
+      :root {
+        --slide-width: 1080px;
+        --slide-height: 608px;
+      }
+      .slide {
+        padding: 1.8rem 2.2rem;
+      }
+      .slide-title {
+        font-size: 1.55rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =======================================================================
+       TOP CONTROL BAR
+       ======================================================================= -->
+  <header class="top-toolbar">
+    <div class="toolbar-left">
+      <div class="project-badge">
+        <span class="live-dot"></span>
+        <span>AlDía · Avance 1 Oficial</span>
+      </div>
+      <span class="course-title-subtle">Análisis de Datos Web · Ciclo 2026-II (Zegel)</span>
+    </div>
+
+    <div class="toolbar-center">
+      <div class="timer-display" id="presentationTimer">
+        <span>⏱️</span>
+        <span id="timerText">00:00</span>
+        <span style="color: var(--text-dim); font-size: 0.8rem;">/ 11:00</span>
+      </div>
+      <button class="btn-tool" id="btnToggleTimer" title="Iniciar / Pausar cronómetro">▶ Iniciar</button>
+      <button class="btn-tool" id="btnResetTimer" title="Reiniciar cronómetro">↺</button>
+    </div>
+
+    <div class="toolbar-right">
+      <div class="slide-counter">
+        Lámina <strong id="currentSlideNum">01</strong> de <strong>10</strong>
+      </div>
+      <button class="btn-tool" id="btnToggleNotes" title="Guión del expositor (Tecla S)">
+        📝 Guión [S]
+      </button>
+      <button class="btn-tool" id="btnToggleTheme" title="Alternar tema visual">
+        🎨 Tema
+      </button>
+      <button class="btn-tool" id="btnToggleFullscreen" title="Pantalla completa (Tecla F)">
+        ⛶ [F]
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <!-- =======================================================================
+       PRESENTATION VIEWPORT
+       ======================================================================= -->
+  <main class="presentation-viewport">
+    
+    <!-- Navigation arrows -->
+    <button class="nav-arrow prev" id="btnPrev" aria-label="Lámina anterior">❮</button>
+    <button class="nav-arrow next" id="btnNext" aria-label="Siguiente lámina">❯</button>
+
+    <div class="slide-container">
+
+      <!-- ===================================================================
+           LÁMINA 1: PORTADA Y PRESENTACIÓN (0:00 - 0:45 min)
+           =================================================================== -->
+      <section class="slide active" data-slide="1" data-time="0:00 - 0:45" data-title="Portada y Presentación del Proyecto">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Evaluación Oficial · Sesión 05 · Avance 1 Grupal</div>
+            <h1 class="slide-title">Estrategia Digital y <span class="highlight">Analítica Web Multicanal</span></h1>
+          </div>
+          <div class="slide-timing-pill">⏱️ 0:00 – 0:45 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col" style="align-items: center;">
+            <div>
+              <div style="display: inline-block; background: rgba(45, 212, 191, 0.12); color: var(--cyan-neon); font-size: 0.85rem; font-weight: 800; padding: 0.35rem 0.9rem; border-radius: var(--radius-pill); border: 1px solid rgba(45, 212, 191, 0.3); margin-bottom: 1rem;">
+                PROYECTO: APP ALDÍA (MICRO-SAAS B2B)
+              </div>
+              <p style="font-size: 1.15rem; color: var(--text-main); font-weight: 700; line-height: 1.4; margin-bottom: 1rem;">
+                Despliegue de Landing Page en WordPress, telemetría oficial con Google Site Kit (GA4) y canal social en Facebook Fanpage.
+              </p>
+              <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem;">
+                Validación de hipótesis de adquisición, trazabilidad de eventos clave y sustentación comparativa de métricas web frente a redes sociales para comercios minoristas (NRUS).
+              </p>
+              
+              <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="formula-tag">WordPress 6.x</span>
+                <span class="formula-tag">Hosting Gratuito</span>
+                <span class="formula-tag">Google Site Kit</span>
+                <span class="formula-tag">GA4: G-84W4NXCRFJ</span>
+                <span class="formula-tag">Facebook Fanpage</span>
+              </div>
+            </div>
+
+            <div class="content-box highlight" style="justify-content: center;">
+              <div class="box-title">📋 Ficha Técnica de la Evaluación</div>
+              <ul class="feature-list" style="font-size: 0.86rem; gap: 0.7rem;">
+                <li class="feature-item">
+                  <span class="icon">🏛️</span>
+                  <span><strong>Institución:</strong> Zegel Ipae (Educación Superior)</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">📚</span>
+                  <span><strong>Curso:</strong> Análisis de Datos Web (Ciclo 2026-II)</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">👥</span>
+                  <span><strong>Equipo Evaluado:</strong> Grupo 7 (Integrantes Oficiales)</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">🎯</span>
+                  <span><strong>Aplicación Móvil:</strong> AlDía – "Tu negocio y mercadería, siempre al día"</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">⏱️</span>
+                  <span><strong>Duración Exposición:</strong> 10:30 – 11:00 minutos cronometrados</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Telemetría Web</div>
+          <div>Lámina 01 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 2: PROPUESTA DEL APLICATIVO Y EMBUDO (0:45 - 1:45 min)
+           =================================================================== -->
+      <section class="slide" data-slide="2" data-time="0:45 - 1:45" data-title="Propuesta de Valor y Embudo de Conversión">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Modelo de Negocio & Funnel Multicanal</div>
+            <h2 class="slide-title">Propuesta del Aplicativo Móvil y <span class="highlight">Embudo de Conversión</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 0:45 – 1:45 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Problema & Solución -->
+            <div class="content-box">
+              <div class="box-title">🛒 AlDía: El Dolor del Microcomercio</div>
+              <p class="box-p">
+                <strong>Problema Central:</strong> En Perú, las bodegas y minimarkets pierden entre <strong>S/ 350 y S/ 600 mensuales</strong> por productos que caducan en anaquel y pérdida de la ventana de canje gratuito con repartidores (Bimbo, Gloria).
+              </p>
+              <p class="box-p">
+                <strong>Solución AlDía (Baja Fricción):</strong> Cero tipeo en caja. Visión computacional para registrar guías por foto, <strong>semáforo preventivo de canjes</strong> y salida automatizada FEFO.
+              </p>
+              <div style="background: rgba(45, 212, 191, 0.08); border-left: 3px solid var(--cyan-neon); padding: 0.6rem 0.8rem; border-radius: 0 6px 6px 0; font-size: 0.82rem; margin-top: auto;">
+                <strong>Buyer Persona:</strong> Dueños de minimarkets y bodegas (30-55 años, Régimen NRUS, urbanos en Lima).
+              </div>
+            </div>
+
+            <!-- Embudo de Conversión -->
+            <div class="content-box highlight">
+              <div class="box-title">🔻 Arquitectura del Embudo (Funnel)</div>
+              <div class="funnel-container">
+                <div class="funnel-stage funnel-tofu">
+                  <div>
+                    <div class="funnel-title">📢 Top of Funnel (ToFU) · Atracción</div>
+                    <div class="funnel-desc">Fanpage de Facebook: Posts sobre mermas y dolor del cuaderno.</div>
+                  </div>
+                  <span class="formula-tag">Alcance / Impresiones</span>
+                </div>
+
+                <div class="funnel-stage funnel-mofu">
+                  <div>
+                    <div class="funnel-title">🌐 Middle of Funnel (MoFU) · Consideración</div>
+                    <div class="funnel-desc">Landing Page en WordPress: Simulador de ahorro y beneficios.</div>
+                  </div>
+                  <span class="formula-tag">Engagement > 60%</span>
+                </div>
+
+                <div class="funnel-stage funnel-bofu">
+                  <div>
+                    <div class="funnel-title">🎯 Bottom of Funnel (BoFU) · Conversión</div>
+                    <div class="funnel-desc">Clic en CTA "Descargar App" / Registro a prueba gratuita de 14 días.</div>
+                  </div>
+                  <span class="formula-tag" style="background: var(--cyan-neon); color: #030d12; font-weight: 800;">CR Maestro ⭐</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Funnel Multicanal</div>
+          <div>Lámina 02 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 3: LANDING PAGE EN WORDPRESS EN HOSTING GRATUITO (1:45 - 3:00 min)
+           =================================================================== -->
+      <section class="slide" data-slide="3" data-time="1:45 - 3:00" data-title="Despliegue de Landing Page en WordPress">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Infraestructura Web & Principio AIDA</div>
+            <h2 class="slide-title">Landing Page en WordPress en <span class="highlight">Hosting Gratuito</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 1:45 – 3:00 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Arquitectura AIDA y Hosting -->
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div class="content-box">
+                <div class="box-title">⚙️ Servidor y Dominio Activo</div>
+                <p class="box-p">
+                  <strong>Entorno:</strong> WordPress 6.x alojado en servidor cloud gratuito (<strong>InfinityFree / AccuWebHosting</strong>) con PHP 8.2 y base de datos MySQL, con réplica estática ultrarrápida en GitHub Pages / Vercel.
+                </p>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <span class="formula-tag">aldia.infinityfreeapp.com</span>
+                  <span class="formula-tag">SSL HTTPS Activo</span>
+                </div>
+              </div>
+
+              <div class="content-box highlight">
+                <div class="box-title">📐 Estructura Persuasiva AIDA</div>
+                <ul class="feature-list">
+                  <li class="feature-item">
+                    <span class="icon">🔴</span>
+                    <span><strong>Atención:</strong> Titular emocional de pérdida: <em>"Deja de botar plata por productos vencidos"</em>.</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="icon">🟡</span>
+                    <span><strong>Interés:</strong> Mockup visual de smartphone con alertas preventivas reales (Canje Bimbo/Gloria).</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="icon">🟢</span>
+                    <span><strong>Deseo:</strong> Calculadora interactiva que cuantifica el dinero rescatado según compras.</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="icon">⭐</span>
+                    <span><strong>Acción (CTA):</strong> Botón <em>"Quiero probarlo gratis / Descargar App"</em> visible en el 100% del primer scroll.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Showcase Visual de la Landing -->
+            <div class="image-showcase">
+              <img src="assets/landing_page_hero_aldia.png" alt="Captura de Landing Page AlDía">
+              <div class="caption-overlay">
+                <span><strong>Hero Section:</strong> Botón CTA visible 'Above the fold' sin necesidad de scroll</span>
+                <span class="formula-tag">100% Móvil Responsivo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Arquitectura Web</div>
+          <div>Lámina 03 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 4: INTEGRACIÓN CON GOOGLE SITE KIT (3:00 - 4:15 min)
+           =================================================================== -->
+      <section class="slide" data-slide="4" data-time="3:00 - 4:15" data-title="Integración Técnica con Google Site Kit">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Telemetría Oficial & Modelo de Eventos</div>
+            <h2 class="slide-title">Integración Técnica de Analítica con <span class="highlight">Google Site Kit</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 3:00 – 4:15 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Explicación Técnica -->
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div class="content-box">
+                <div class="box-title">🔌 ¿Por qué Google Site Kit?</div>
+                <p class="box-p">
+                  Plugin oficial de Google que implementa las etiquetas de medición en WordPress <strong>sin alterar archivos PHP del tema</strong>, asegurando persistencia ante actualizaciones y cumplimiento de estándares de privacidad.
+                </p>
+                <ul class="feature-list">
+                  <li class="feature-item">
+                    <span class="icon">📊</span>
+                    <span><strong>Google Analytics 4:</strong> Medición por eventos (ID: <code>G-84W4NXCRFJ</code>).</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="icon">🔍</span>
+                    <span><strong>Search Console:</strong> Verificación de propiedad e indexación de búsqueda.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-box highlight">
+                <div class="box-title">📡 Trazabilidad de Micro-Conversiones</div>
+                <p class="box-p">
+                  Uso de la capa <code>window.dataLayer</code> para capturar la interacción real del usuario con el producto:
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.78rem;">
+                  <span class="formula-tag">click_cta_download</span>
+                  <span class="formula-tag">phone_demo_interacted</span>
+                  <span class="formula-tag">calculator_adjusted</span>
+                  <span class="formula-tag">whatsapp_bot_action</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Showcase Flujo de Datos GA4 -->
+            <div class="image-showcase">
+              <img src="assets/ga4_flujo_datos_aldia.jpg" alt="Detalles del flujo web en Google Analytics 4">
+              <div class="caption-overlay">
+                <span><strong>Flujo Web GA4:</strong> ID de Medición G-84W4NXCRFJ y Medición Mejorada Activa</span>
+                <span class="formula-tag">Estado: Conectado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Google Site Kit & GA4</div>
+          <div>Lámina 04 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 5: CANAL SOCIAL: FANPAGE EN FACEBOOK (4:15 - 5:30 min)
+           =================================================================== -->
+      <section class="slide" data-slide="5" data-time="4:15 - 5:30" data-title="Canal de Tráfico Social: Fanpage en Facebook">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Atracción Social & Generación de Tráfico</div>
+            <h2 class="slide-title">Canal de Tráfico Social: <span class="highlight">Fanpage en Facebook</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 4:15 – 5:30 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Estrategia Social -->
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div class="content-box">
+                <div class="box-title">📘 Página Oficial: "AlDía Perú"</div>
+                <p class="box-p">
+                  Canal de prospección orgánico configurado con identidad de marca para impactar directamente al ecosistema de bodegueros y comerciantes minoristas en Facebook Groups y feed local.
+                </p>
+                <ul class="feature-list">
+                  <li class="feature-item">
+                    <span class="icon">🔗</span>
+                    <span><strong>Botón de Acción Principal:</strong> <em>"Usar aplicación / Visitar sitio web"</em> derivando tráfico a la landing page.</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="icon">🏷️</span>
+                    <span><strong>Etiquetado UTM:</strong> Parámetros <code>utm_source=facebook&utm_medium=organic_post</code> para aislar el tráfico social en GA4.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content-box highlight">
+                <div class="box-title">📝 Estrategia de Contenidos (Copywriting)</div>
+                <p class="box-p">
+                  Publicaciones centradas en la empatía con el comerciante:
+                </p>
+                <div style="background: rgba(3, 13, 18, 0.6); padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.8rem; border-left: 3px solid #38bdf8;">
+                  <em>"¿El repartidor de Bimbo vino ayer y encontraste el lote vencido hoy? Con AlDía programas el canje a tiempo y no pierdes ni un sol."</em>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mockup de Fanpage de Facebook -->
+            <div class="content-box" style="justify-content: center; background: rgba(8, 27, 36, 0.9);">
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+                <div style="width: 58px; height: 58px; border-radius: 50%; background: #1877f2; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; font-weight: 900;">f</div>
+                <div>
+                  <div style="font-size: 1.2rem; font-weight: 800; color: #fff;">AlDía Perú – Control de Vencimientos</div>
+                  <div style="font-size: 0.82rem; color: #38bdf8;">@aldia.pe · Software de gestión comercial · 100% Bodegas</div>
+                </div>
+              </div>
+
+              <div style="background: rgba(3, 13, 18, 0.8); border: 1px solid var(--border-card); border-radius: 10px; padding: 1rem; margin-bottom: 1rem;">
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.5rem;">Publicación destacada con enlace saliente:</div>
+                <div style="font-size: 0.86rem; color: #fff; margin-bottom: 0.75rem;">
+                  🚨 <strong>¿Sabías que el 4.5% de tus ganancias se van a la basura en yogurts y embutidos vencidos?</strong><br>
+                  Prueba gratis AlDía por 14 días y automatiza tus canjes.
+                </div>
+                <div style="background: #1877f2; color: #fff; padding: 0.5rem 1rem; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.82rem; text-align: center; display: inline-block;">
+                  👉 Probar AlDía Gratis (aldia.infinityfreeapp.com)
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-dim);">
+                <span>👥 Objetivo: Prospección ToFU</span>
+                <span>📈 Medición: Meta Business Suite</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Canal Social Facebook</div>
+          <div>Lámina 05 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 6: DEFINICIÓN Y SUSTENTACIÓN DE KPIS WEB (5:30 - 7:00 min) ⭐
+           =================================================================== -->
+      <section class="slide" data-slide="6" data-time="5:30 - 7:00" data-title="Definición y Sustentación de KPIs para la Web">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Rúbrica Clave · Criterio Científico de Medición</div>
+            <h2 class="slide-title">Definición y Sustentación de <span class="highlight">KPIs para la Web</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 5:30 – 7:00 min</div>
+        </div>
+
+        <div class="slide-body">
+          <table class="kpi-table">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Indicador (KPI)</th>
+                <th style="width: 28%;">Fórmula / Métrica en GA4</th>
+                <th style="width: 32%;">Sustentación Técnica (Por qué importa)</th>
+                <th style="width: 18%;">Meta / Benchmark</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Usuarios y Sesiones</strong></td>
+                <td><span class="formula-tag">Total Users & Sessions</span></td>
+                <td>Volumen neto de comerciantes atraídos y frecuencia de retorno a la plataforma.</td>
+                <td>Volumen base inicial</td>
+              </tr>
+              <tr>
+                <td><strong>Tasa de Interacción</strong><br><small style="color: var(--cyan-neon);">Reemplazo de rebote</small></td>
+                <td><span class="formula-tag">(Sesiones Interactivas / Total) * 100</span></td>
+                <td>Evalúa permanencia real: sesiones de más de 10s o con eventos de conversión.</td>
+                <td><strong>> 60.0%</strong> (Alta retención)</td>
+              </tr>
+              <tr>
+                <td><strong>Tiempo de Interacción</strong></td>
+                <td><span class="formula-tag">Average Engagement Time</span></td>
+                <td>Mide si el bodeguero analizó la calculadora de pérdidas y leyó los planes.</td>
+                <td><strong>> 1m 15s</strong></td>
+              </tr>
+              <tr style="background: rgba(45, 212, 191, 0.08);">
+                <td>
+                  <span class="kpi-star">⭐ KPI MAESTRO</span><br>
+                  <strong style="color: var(--cyan-neon);">Tasa de Conversión (CR)</strong>
+                </td>
+                <td>
+                  <span class="formula-tag" style="background: var(--cyan-neon); color: #030d12; font-weight: 800;">
+                    (Clics en Descargar / Sesiones) * 100
+                  </span>
+                </td>
+                <td><strong>Indicador definitivo de viabilidad comercial:</strong> valida cuántos visitantes decidieron adquirir el producto.</td>
+                <td><strong>3.0% – 7.0%</strong><br>(Estándar SaaS B2B)</td>
+              </tr>
+              <tr>
+                <td><strong>Canales de Tráfico</strong></td>
+                <td><span class="formula-tag">Session Default Channel Group</span></td>
+                <td>Aislamiento de fuentes (Social Facebook vs Directo vs Referencia).</td>
+                <td>Facebook > 40%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Telemetría Web & KPIs</div>
+          <div>Lámina 06 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 7: DEFINICIÓN Y SUSTENTACIÓN DE KPIS FACEBOOK (7:00 - 8:15 min)
+           =================================================================== -->
+      <section class="slide" data-slide="7" data-time="7:00 - 8:15" data-title="Definición y Sustentación de KPIs para Facebook">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Analítica Social & Tráfico Derivado</div>
+            <h2 class="slide-title">Definición y Sustentación de <span class="highlight">KPIs para Facebook</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 7:00 – 8:15 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <table class="kpi-table" style="height: 100%;">
+              <thead>
+                <tr>
+                  <th>KPI en Redes</th>
+                  <th>Definición / Cálculo</th>
+                  <th>Objetivo Analítico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Alcance (Reach)</strong></td>
+                  <td>Cuentas únicas que visualizaron los posts.</td>
+                  <td>Evaluar amplitud del embudo en la fase de descubrimiento (ToFU).</td>
+                </tr>
+                <tr>
+                  <td><strong>Impresiones</strong></td>
+                  <td>Exposiciones totales de las publicaciones.</td>
+                  <td>Medir frecuencia de repetición del mensaje en el público objetivo.</td>
+                </tr>
+                <tr>
+                  <td><strong>Tasa de Engagement</strong></td>
+                  <td><span class="formula-tag">(Interacciones / Alcance) * 100</span></td>
+                  <td>Detectar si la problemática de productos vencidos genera empatía y debate.</td>
+                </tr>
+                <tr style="background: rgba(56, 189, 248, 0.08);">
+                  <td>
+                    <span class="kpi-star" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border-color: #38bdf8;">⭐ KPI CLAVE</span><br>
+                    <strong style="color: #38bdf8;">CTR en Enlace Saliente</strong>
+                  </td>
+                  <td>
+                    <span class="formula-tag">
+                      (Clics al Sitio Web / Impresiones) * 100
+                    </span>
+                  </td>
+                  <td><strong>El puente multicanal:</strong> un "like" no descarga la app; el clic saliente demuestra intención real.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Comparativa Conceptual: Like vs Conversión -->
+            <div class="content-box highlight" style="justify-content: space-between;">
+              <div>
+                <div class="box-title">⚖️ Criterio Analítico: Likes vs Clics Reales</div>
+                <p class="box-p">
+                  En el curso de <strong>Análisis de Datos Web</strong> aprendemos a no engañarnos con <em>"métricas de vanidad"</em>:
+                </p>
+                <div style="background: rgba(244, 63, 94, 0.1); border-left: 3px solid var(--accent-coral); padding: 0.6rem 0.8rem; border-radius: 0 6px 6px 0; font-size: 0.8rem; margin-bottom: 0.8rem;">
+                  ❌ <strong>Métrica de Vanidad:</strong> 500 "Me gusta" en un post no representan ingresos si nadie visita la landing page.
+                </div>
+                <div style="background: rgba(45, 212, 191, 0.1); border-left: 3px solid var(--cyan-neon); padding: 0.6rem 0.8rem; border-radius: 0 6px 6px 0; font-size: 0.8rem;">
+                  ✅ <strong>Métrica de Valor (CTR Saliente):</strong> 40 comerciantes que hicieron clic en el enlace demuestran necesidad genuina y alimentan la base de conversión.
+                </div>
+              </div>
+
+              <div style="background: rgba(3, 13, 18, 0.8); border: 1px solid var(--border-card); padding: 0.6rem 0.9rem; border-radius: 8px; font-size: 0.78rem; color: var(--text-muted);">
+                🎯 <strong>Benchmark Meta Ads / Orgánico:</strong> Outbound CTR saludable en B2B: <strong>1.5% a 3.2%</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Métricas de Facebook</div>
+          <div>Lámina 07 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 8: RESULTADOS INICIALES Y COMPARATIVA (8:15 - 9:30 min)
+           =================================================================== -->
+      <section class="slide" data-slide="8" data-time="8:15 - 9:30" data-title="Resultados Iniciales y Comparativa Multicanal">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Evidencia Empírica de Telemetría</div>
+            <h2 class="slide-title">Resultados Iniciales y <span class="highlight">Comparativa Multicanal</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 8:15 – 9:30 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Showcase Panel GA4 Tiempo Real -->
+            <div class="image-showcase">
+              <img src="assets/ga4_dashboard_realtime_users.png" alt="Google Analytics 4 panel en tiempo real con 8 usuarios">
+              <div class="caption-overlay">
+                <span><strong>Panel Oficial GA4:</strong> 8 Usuarios activos en tiempo real con tráfico registrado de Perú</span>
+                <span class="formula-tag">ID: G-84W4NXCRFJ</span>
+              </div>
+            </div>
+
+            <!-- Síntesis de Métricas Registradas -->
+            <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+              <div class="content-box">
+                <div class="box-title">📊 Datos Registrados en la Prueba Inicial</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; font-size: 0.82rem;">
+                  <div style="background: rgba(3, 13, 18, 0.6); padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-card);">
+                    <div style="color: var(--cyan-neon); font-size: 1.25rem; font-weight: 900;">8</div>
+                    <div style="color: var(--text-muted);">Usuarios en Tiempo Real</div>
+                  </div>
+                  <div style="background: rgba(3, 13, 18, 0.6); padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-card);">
+                    <div style="color: #38bdf8; font-size: 1.25rem; font-weight: 900;">38%</div>
+                    <div style="color: var(--text-muted);">Tráfico Perú (Target)</div>
+                  </div>
+                  <div style="background: rgba(3, 13, 18, 0.6); padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-card);">
+                    <div style="color: var(--accent-amber); font-size: 1.25rem; font-weight: 900;">1m 32s</div>
+                    <div style="color: var(--text-muted);">Permanencia Media</div>
+                  </div>
+                  <div style="background: rgba(3, 13, 18, 0.6); padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-card);">
+                    <div style="color: #4ade80; font-size: 1.25rem; font-weight: 900;">4</div>
+                    <div style="color: var(--text-muted);">Pruebas Bot Simulador</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-box highlight">
+                <div class="box-title">🔄 Análisis Comparativo Multicanal</div>
+                <ul class="feature-list" style="font-size: 0.82rem;">
+                  <li class="feature-item">
+                    <span class="icon">🔹</span>
+                    <span><strong>Facebook:</strong> Cumplió su rol de atracción masiva de bajo costo generando el 40% del flujo de entrada inicial.</span>
+                  </li>
+                  <li class="feature-item">
+                    <span class="icon">🔹</span>
+                    <span><strong>Landing Page:</strong> Retuvo la atención técnica; los usuarios dedicaron más de 1 minuto a interactuar con las alertas y la calculadora.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Resultados Multicanal</div>
+          <div>Lámina 08 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 9: CONCLUSIONES Y PRÓXIMOS PASOS (9:30 - 10:30 min)
+           =================================================================== -->
+      <section class="slide" data-slide="9" data-time="9:30 - 10:30" data-title="Conclusiones del Avance 1 y Próximos Pasos">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Evaluación Crítica & Hoja de Ruta</div>
+            <h2 class="slide-title">Conclusiones del Avance 1 y <span class="highlight">Próximos Pasos</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 9:30 – 10:30 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Conclusiones -->
+            <div class="content-box">
+              <div class="box-title">🎯 Conclusiones del Avance 1</div>
+              <ul class="feature-list" style="gap: 0.85rem;">
+                <li class="feature-item">
+                  <span class="icon">✅</span>
+                  <span><strong>Infraestructura a Costo Cero Viable:</strong> Se comprobó la factibilidad técnica de desplegar WordPress con Google Site Kit y GA4 sin costos de servidor.</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">✅</span>
+                  <span><strong>Trazabilidad Validada:</strong> El modelo de eventos de GA4 capta con precisión milimétrica los clics en el botón CTA y el simulador.</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">⚠️</span>
+                  <span><strong>Dificultades Superadas:</strong> Límites de memoria PHP (128MB) y llamadas cURL en hosting gratuito resueltas mediante optimización de imágenes y caché estática.</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Próximos Pasos (Avance 2) -->
+            <div class="content-box highlight">
+              <div class="box-title">🚀 Plan de Trabajo para el Avance 2</div>
+              <ul class="feature-list" style="gap: 0.85rem;">
+                <li class="feature-item">
+                  <span class="icon">🧪</span>
+                  <span><strong>Pruebas A/B en CTA:</strong> Experimentar con el color (Terracota vs Cian Neón) y copy del botón (<em>"Descargar App"</em> vs <em>"Calcular mi ahorro gratis"</em>) para maximizar la tasa de conversión.</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">📊</span>
+                  <span><strong>Dashboard en Looker Studio:</strong> Construir un cuadro de mando integral que consolide en tiempo real las APIs de Google Analytics 4 y Meta Facebook Insights.</span>
+                </li>
+                <li class="feature-item">
+                  <span class="icon">📈</span>
+                  <span><strong>Segmentación de Audiencia:</strong> Analizar la tasa de conversión discriminada por distrito y tipo de dispositivo (Android vs iOS).</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Hoja de Ruta Avance 2</div>
+          <div>Lámina 09 / 10</div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           LÁMINA 10: CIERRE Y RONDA DE PREGUNTAS (10:30 - 11:00 min)
+           =================================================================== -->
+      <section class="slide" data-slide="10" data-time="10:30 - 11:00" data-title="Cierre y Respuestas Preparadas ante el Docente">
+        <div class="slide-header">
+          <div class="slide-header-left">
+            <div class="slide-pretitle">Sustentación Final · Ronda de Preguntas</div>
+            <h2 class="slide-title">Cierre de Exposición y <span class="highlight">Ronda de Preguntas</span></h2>
+          </div>
+          <div class="slide-timing-pill">⏱️ 10:30 – 11:00 min</div>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2col">
+            <!-- Agradecimiento -->
+            <div class="content-box" style="justify-content: center; text-align: center;">
+              <div style="font-size: 3rem; margin-bottom: 0.5rem;">🤝</div>
+              <h3 style="font-size: 1.4rem; font-weight: 850; color: #fff; margin-bottom: 0.5rem;">
+                ¡Muchas Gracias por su Atención!
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Equipo evaluado: <strong>Grupo 7</strong> · Análisis de Datos Web<br>
+                Instituto de Educación Superior Zegel · Ciclo 2026-II
+              </p>
+              <div style="background: rgba(45, 212, 191, 0.1); border: 1px solid var(--cyan-neon); border-radius: var(--radius-pill); padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--cyan-neon); font-weight: 700; display: inline-block;">
+                Listo para la ronda de preguntas aleatorias del docente
+              </div>
+            </div>
+
+            <!-- Respuestas Preparadas ante Preguntas Clave -->
+            <div class="content-box highlight">
+              <div class="box-title">🛡️ Respuestas Preparadas (Defensa Técnica)</div>
+              
+              <div class="qa-card">
+                <div class="qa-q">1. ¿Por qué ese hosting y qué limitaciones hallaron?</div>
+                <div class="qa-a">Elegimos InfinityFree/AccuWeb por compatibilidad MySQL y PHP 8 sin publicidad invasiva. Limitaciones: memoria PHP (128MB) y tiempos de ejecución que mitigamos optimizando código y caché.</div>
+              </div>
+
+              <div class="qa-card">
+                <div class="qa-q">2. ¿Cómo configuraron el evento de conversión en GA4?</div>
+                <div class="qa-a">Vía Google Site Kit con Medición Mejorada, inyectando un evento personalizado en <code>dataLayer.push</code> y marcándolo como 'Evento Clave' (Key Event) en Administrar > Eventos de GA4.</div>
+              </div>
+
+              <div class="qa-card">
+                <div class="qa-q">3. ¿Si el rebote supera el 70%, qué harían?</div>
+                <div class="qa-a">En una landing de conversión un 70% es crítico. Hipótesis: velocidad lenta móvil o 'message mismatch' con Facebook. Plan: comprimir activos, unificar copy y ubicar el CTA más arriba.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div class="slide-footer-brand">AL<span>Día</span> · Preguntas & Sustentación</div>
+          <div>Lámina 10 / 10</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- =======================================================================
+       SPEAKER NOTES DRAWER (PRESS 'S')
+       ======================================================================= -->
+  <aside class="speaker-drawer" id="speakerDrawer" aria-label="Notas del expositor">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span>🎙️ Guión de Exposición Cronometrado</span>
+        <span class="formula-tag" id="drawerTiming">0:00 – 0:45 min</span>
+      </div>
+      <button class="btn-tool" id="btnCloseDrawer">Cerrar [S]</button>
+    </div>
+    <div class="drawer-body" id="drawerBody">
+      <!-- Dynamic notes content inserted here by JS -->
+    </div>
+  </aside>
+
+  <!-- =======================================================================
+       CLIENT SCRIPT: INTERACTION & LOGIC
+       ======================================================================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Notes database per slide
+      const speakerNotes = {
+        1: `
+          <span class="cue">[Lámina 1: Portada · 0:00 - 0:45 min]</span>
+          <p>"Buenos días, estimado profesor y compañeros. Hoy el Grupo 7 tiene el agrado de presentar la sustentación del Avance 1 para el curso de <strong>Análisis de Datos Web</strong>.</p>
+          <p>Nuestro proyecto se titula <strong>'Estrategia Digital y Analítica Web Multicanal'</strong>, enfocado en el despliegue técnico y la medición de telemetría para <strong>AlDía</strong>, una solución digital diseñada para microcomercios.</p>
+          <p>El alcance de este primer hito comprende la implementación de una Landing Page en WordPress bajo un hosting gratuito, la conexión de analítica avanzada mediante <strong>Google Site Kit</strong> enlazando Google Analytics 4 y Search Console, y la apertura de una <strong>Fanpage en Facebook</strong> como canal social de atracción. Demostraremos cómo estructuramos el embudo, los KPIs seleccionados y los primeros datos de telemetría recopilados."</p>
+        `,
+        2: `
+          <span class="cue">[Lámina 2: Propuesta y Embudo · 0:45 - 1:45 min]</span>
+          <p>"Para entender qué datos estamos analizando, primero debemos conocer el producto. <strong>AlDía</strong> resuelve un problema crítico en las microempresas del Perú (bodegas y minimarkets bajo régimen NRUS): <strong>las pérdidas económicas por productos vencidos y la pérdida de la ventana de canje con distribuidores</strong>.</p>
+          <p>A diferencia de un ERP pesado que exige pistolear cada producto en caja, AlDía opera con visión computacional: el bodeguero toma foto a su guía de remisión física y el sistema activa un <strong>semáforo preventivo</strong> que le avisa cuándo pedir el canje gratuito a proveedores como Bimbo o Gloria.</p>
+          <p>Para captar usuarios diseñamos un <strong>Embudo de Conversión Multicanal</strong>: en el <strong>ToFU</strong>, Facebook genera conciencia del dolor; en el <strong>MoFU</strong>, la Landing Page muestra la calculadora de ahorro; y en el <strong>BoFU</strong>, se produce la conversión primaria con el clic en 'Descargar App'."</p>
+        `,
+        3: `
+          <span class="cue">[Lámina 3: Landing Page en WordPress · 1:45 - 3:00 min]</span>
+          <p>"Cumpliendo con la rúbrica del curso, desplegamos la Landing Page sobre el CMS <strong>WordPress</strong> en un servidor cloud gratuito (<strong>InfinityFree / AccuWebHosting</strong>) con soporte PHP y MySQL, además de contar con réplicas activas en Vercel y GitHub Pages.</p>
+          <p>La arquitectura de la página se diseñó bajo el principio clásico <strong>AIDA</strong>:</p>
+          <p>• <strong>Atención:</strong> Con el titular emocional <em>'Deja de botar plata por productos vencidos'</em>.<br>
+          • <strong>Interés:</strong> Con el mockup interactivo del smartphone y sus alertas de canje preventivo.<br>
+          • <strong>Deseo:</strong> Mediante una calculadora donde el bodeguero calcula cuánto dinero rescata al mes.<br>
+          • <strong>Acción:</strong> El botón principal <strong>CTA ('Quiero probarlo gratis / Descargar App')</strong> visible inmediatamente en el primer pantallazo ('above the fold') sin necesidad de hacer scroll, tanto en computadoras como en celulares."</p>
+        `,
+        4: `
+          <span class="cue">[Lámina 4: Google Site Kit & GA4 · 3:00 - 4:15 min]</span>
+          <p>"Para la recolección científica de datos, la rúbrica exige telemetría oficial. Implementamos el plugin oficial <strong>Google Site Kit</strong> en WordPress.</p>
+          <p>¿Por qué Site Kit? Porque inyecta las etiquetas oficiales en el encabezado sin alterar archivos PHP del tema, garantizando estabilidad ante actualizaciones.</p>
+          <p>Conectamos dos plataformas:<br>
+          1. <strong>Google Analytics 4 (GA4):</strong> Con ID de medición <code>G-84W4NXCRFJ</code>. GA4 opera bajo un modelo de <strong>Eventos y Parámetros</strong>, superando el antiguo esquema de páginas vistas.<br>
+          2. <strong>Google Search Console:</strong> Para monitorear la indexación y consultas de búsqueda orgánica.<br>
+          Asimismo, configuramos la capa <code>dataLayer</code> para rastrear micro-interacciones como clics de descarga y uso de la calculadora."</p>
+        `,
+        5: `
+          <span class="cue">[Lámina 5: Fanpage en Facebook · 4:15 - 5:30 min]</span>
+          <p>"Como canal orgánico de atracción social, creamos la <strong>Fanpage oficial en Facebook: 'AlDía Perú – App para Bodegas'</strong>.</p>
+          <p>Elegimos Facebook porque nuestro Buyer Persona (dueños de minimarkets de 30 a 55 años) utiliza activamente esta red social y participa en grupos comerciales vecinales.</p>
+          <p>La página cuenta con identidad corporativa y el botón de llamada a la acción configurado como <strong>'Usar aplicación'</strong> apuntando a nuestra web. En las publicaciones compartimos infografías sobre políticas de canje de proveedores y enlaces con parámetros UTM para registrar en Google Analytics exactamente qué posts generan más visitas."</p>
+        `,
+        6: `
+          <span class="cue">[Lámina 6: KPIs de la Web (Rúbrica Clave) · 5:30 - 7:00 min]</span>
+          <p>"Llegamos a uno de los puntos clave evaluados: <strong>la selección y sustentación técnica de los KPIs de la Landing Page</strong>. Descartamos métricas de vanidad y priorizamos indicadores de negocio:</p>
+          <p>1. <strong>Usuarios y Sesiones:</strong> Mide el volumen real de comerciantes alcanzados.<br>
+          2. <strong>Tasa de Interacción (Engagement Rate) en GA4:</strong> En GA4 reemplaza al antiguo 'rebote'. Considera interactuadas las sesiones que duran más de 10 segundos o generan una conversión. Nuestra meta es superar el 60%.<br>
+          3. <strong>Tiempo Medio de Interacción:</strong> Revela si el bodeguero leyó la propuesta y usó la calculadora de ahorro.<br>
+          4. <strong>Tasa de Conversión a Descarga (CR) – NUESTRO KPI MAESTRO:</strong> (Clics en Descargar / Total de Sesiones) * 100. En el sector SaaS B2B, un benchmark saludable es entre 3% y 7%.<br>
+          5. <strong>Canales de Adquisición:</strong> Evalúa el peso del tráfico Social frente al Directo y Orgánico."</p>
+        `,
+        7: `
+          <span class="cue">[Lámina 7: KPIs de Facebook · 7:00 - 8:15 min]</span>
+          <p>"En la Fanpage de Facebook evaluamos métricas mediante Meta Business Suite:</p>
+          <p>1. <strong>Alcance Orgánico:</strong> Cuentas únicas que visualizaron los posts en su feed.<br>
+          2. <strong>Impresiones Totales:</strong> Frecuencia total de exposición de las piezas gráficas.<br>
+          3. <strong>Tasa de Engagement:</strong> (Interacciones / Alcance) * 100.<br>
+          4. <strong>CTR en Enlace Saliente (Outbound Click-Through Rate) – EL KPI ESTRELLA:</strong> (Clics al sitio web / Impresiones) * 100.</p>
+          <p>Un 'Me gusta' en un post es una métrica de vanidad que no genera ingresos. El CTR saliente es el indicador que valida si Facebook cumple su rol de empujar al usuario a la web para descargar la aplicación."</p>
+        `,
+        8: `
+          <span class="cue">[Lámina 8: Resultados Iniciales · 8:15 - 9:30 min]</span>
+          <p>"A continuación mostramos la evidencia empírica de telemetría registrada en nuestro panel oficial de <strong>Google Analytics 4 (ID: G-84W4NXCRFJ)</strong>:</p>
+          <p>• Como observan en la captura en pantalla, logramos un registro de <strong>8 usuarios activos simultáneos en tiempo real</strong>, con presencia confirmada de <strong>Perú (3 usuarios)</strong> y pruebas de red internacional.<br>
+          • Se registraron eventos de desplazamiento (scroll), interacción con el bot interactivo y visitas completas al Hero Section.<br>
+          • Al contrastar ambos canales: Facebook demostró alta capacidad de atracción inicial, mientras que la Landing Page concentró el tiempo de análisis (sesiones promedio superiores a 1 minuto y medio). El 40% del tráfico inicial provino de enlaces de prueba derivados de redes sociales."</p>
+        `,
+        9: `
+          <span class="cue">[Lámina 9: Conclusiones y Próximos Pasos · 9:30 - 10:30 min]</span>
+          <p>"Para cerrar la presentación de este primer avance, destacamos las siguientes <strong>Conclusiones</strong>:</p>
+          <p>1. <strong>Viabilidad a Costo Cero:</strong> Es plenamente viable desplegar una arquitectura digital profesional (WordPress + Google Site Kit + GA4 + Facebook) con cero costo de inversión en servidores.<br>
+          2. <strong>Trazabilidad Validada:</strong> El flujo de datos entre la etiqueta y el panel de GA4 opera sin pérdidas.<br>
+          3. <strong>Dificultades Superadas:</strong> Mitigamos los límites de memoria de 128MB del hosting gratuito optimizando imágenes a formato WebP y aplicando caché.</p>
+          <p>Para el <strong>Avance 2</strong>, implementaremos experimentos de <strong>Pruebas A/B</strong> en el color y texto del botón CTA, y construiremos un <strong>Dashboard automatizado en Looker Studio</strong> unificando GA4 con Meta Insights."</p>
+        `,
+        10: `
+          <span class="cue">[Lámina 10: Cierre y Preguntas · 10:30 - 11:00 min]</span>
+          <p>"Agradecemos su atención, profesor y compañeros. Con esto concluimos la exposición del Avance 1 del Grupo 7 y quedamos a su entera disposición para responder las preguntas que considere pertinentes."</p>
+          <p><em>[Tener a la vista las respuestas técnicas a las 3 preguntas del docente preparadas en la lámina].</em></p>
+        `
+      };
+
+      // State
+      let currentSlide = 1;
+      const totalSlides = 10;
+      const slides = document.querySelectorAll('.slide');
+      const progressBar = document.getElementById('progressBar');
+      const currentSlideNum = document.getElementById('currentSlideNum');
+      const speakerDrawer = document.getElementById('speakerDrawer');
+      const drawerBody = document.getElementById('drawerBody');
+      const drawerTiming = document.getElementById('drawerTiming');
+
+      function updateSlide(newIndex) {
+        if (newIndex < 1 || newIndex > totalSlides) return;
+        
+        slides.forEach(s => s.classList.remove('active'));
+        currentSlide = newIndex;
+        
+        const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+        if (activeSlide) {
+          activeSlide.classList.add('active');
+          const timing = activeSlide.getAttribute('data-time') || '';
+          drawerTiming.textContent = timing;
+        }
+
+        // Update counter & progress bar
+        currentSlideNum.textContent = currentSlide.toString().padStart(2, '0');
+        const percent = (currentSlide / totalSlides) * 100;
+        progressBar.style.width = `${percent}%`;
+
+        // Update speaker notes
+        drawerBody.innerHTML = speakerNotes[currentSlide] || '<p>Sin notas para esta lámina.</p>';
+      }
+
+      // Nav controls
+      document.getElementById('btnNext').addEventListener('click', () => updateSlide(currentSlide + 1));
+      document.getElementById('btnPrev').addEventListener('click', () => updateSlide(currentSlide - 1));
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          updateSlide(currentSlide + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          updateSlide(currentSlide - 1);
+        } else if (e.key === 'f' || e.key === 'F') {
+          e.preventDefault();
+          toggleFullscreen();
+        } else if (e.key === 's' || e.key === 'S') {
+          e.preventDefault();
+          toggleNotes();
+        }
+      });
+
+      // Speaker Drawer Toggle
+      function toggleNotes() {
+        speakerDrawer.classList.toggle('is-open');
+        document.getElementById('btnToggleNotes').classList.toggle('active');
+      }
+
+      document.getElementById('btnToggleNotes').addEventListener('click', toggleNotes);
+      document.getElementById('btnCloseDrawer').addEventListener('click', toggleNotes);
+
+      // Fullscreen Toggle
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => console.log(err));
+        } else {
+          document.exitFullscreen().catch(err => console.log(err));
+        }
+      }
+
+      document.getElementById('btnToggleFullscreen').addEventListener('click', toggleFullscreen);
+
+      // Theme toggle
+      const themes = ['theme-default', 'theme-cyber', 'theme-light'];
+      let currentThemeIdx = 0;
+
+      document.getElementById('btnToggleTheme').addEventListener('click', () => {
+        document.body.classList.remove('theme-cyber', 'theme-light');
+        currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+        if (themes[currentThemeIdx] !== 'theme-default') {
+          document.body.classList.add(themes[currentThemeIdx]);
+        }
+      });
+
+      // Timer Logic
+      let timerInterval = null;
+      let secondsElapsed = 0;
+      let isTimerRunning = false;
+      const timerText = document.getElementById('timerText');
+      const btnToggleTimer = document.getElementById('btnToggleTimer');
+      const timerDisplay = document.getElementById('presentationTimer');
+
+      function formatTime(secs) {
+        const m = Math.floor(secs / 60).toString().padStart(2, '0');
+        const s = (secs % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      function updateTimerDisplay() {
+        timerText.textContent = formatTime(secondsElapsed);
+        if (secondsElapsed >= 600) { // 10 min
+          timerDisplay.className = 'timer-display danger';
+        } else if (secondsElapsed >= 510) { // 8:30 min
+          timerDisplay.className = 'timer-display warning';
+        } else {
+          timerDisplay.className = 'timer-display';
+        }
+      }
+
+      btnToggleTimer.addEventListener('click', () => {
+        if (isTimerRunning) {
+          clearInterval(timerInterval);
+          btnToggleTimer.textContent = '▶ Reanudar';
+          isTimerRunning = false;
+        } else {
+          timerInterval = setInterval(() => {
+            secondsElapsed++;
+            updateTimerDisplay();
+          }, 1000);
+          btnToggleTimer.textContent = '⏸ Pausar';
+          isTimerRunning = true;
+        }
+      });
+
+      document.getElementById('btnResetTimer').addEventListener('click', () => {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        secondsElapsed = 0;
+        updateTimerDisplay();
+        btnToggleTimer.textContent = '▶ Iniciar';
+      });
+
+      // Initialize slide 1
+      updateSlide(1);
+    });
+  </script>
+</body>
+</html>
