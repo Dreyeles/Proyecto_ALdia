@@ -1616,81 +1616,87 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Notes database per slide
-      const speakerNotes = {
+            const speakerNotes = {
         1: `
-          <span class="cue">[Lámina 1: Portada · 0:00 - 0:45 min]</span>
-          <p>"Buenos días, estimado profesor y compañeros. Hoy el Grupo 7 tiene el agrado de presentar la sustentación del Avance 1 para el curso de <strong>Análisis de Datos Web</strong>.</p>
-          <p>Nuestro proyecto se titula <strong>'Estrategia Digital y Analítica Web Multicanal'</strong>, enfocado en el despliegue técnico y la medición de telemetría para <strong>AlDía</strong>, una solución digital diseñada para microcomercios.</p>
-          <p>El alcance de este primer hito comprende la implementación de una Landing Page en <strong>GitHub Pages</strong> bajo arquitectura Jamstack, la conexión de telemetría oficial de <strong>Google Analytics 4</strong> nativo enlazando Google Analytics 4 y Search Console, y la apertura de una <strong>Fanpage en Facebook</strong> como canal social de atracción. Demostraremos cómo estructuramos el embudo, los KPIs seleccionados y los primeros datos de telemetría recopilados."</p>
+          <span class="cue">[Lámina 1: Portada y Presentación · 0:00 - 0:45 min]</span>
+          <p>"Buenos días, profesor y compañeros. En representación de mi equipo de trabajo, el Grupo 7, tengo el agrado de sustentar hoy la evaluación del Avance 1 para nuestro curso de <strong>Análisis de Datos Web</strong>.</p>
+          <p>Nuestro proyecto se titula <strong>'Estrategia Digital y Analítica Web Multicanal'</strong>, desarrollado alrededor de <strong>AlDía</strong>, una solución digital orientada a solucionar las mermas por vencimiento en bodegas y minimarkets del Perú.</p>
+          <p>Para esta entrega, desplegamos una infraestructura técnica moderna a costo cero: nuestra Landing Page alojada en <strong>GitHub Pages</strong> bajo arquitectura Jamstack, la conexión de telemetría nativa con <strong>Google Analytics 4</strong> mediante la capa de datos <code>dataLayer</code>, y la creación de nuestra <strong>Fanpage oficial en Facebook</strong> como canal de prospección social.</p>
+          <p>En los próximos 10 minutos les explicaré cómo diseñamos este embudo de conversión, el sustento científico de nuestros KPIs y la evidencia empírica de usuarios activos capturados en tiempo real en nuestra consola analítica. Comencemos con la propuesta de valor."</p>
         `,
         2: `
           <span class="cue">[Lámina 2: Propuesta y Embudo · 0:45 - 1:45 min]</span>
-          <p>"Para entender qué datos estamos analizando, primero debemos conocer el producto. <strong>AlDía</strong> resuelve un problema crítico en las microempresas del Perú (bodegas y minimarkets bajo régimen NRUS): <strong>las pérdidas económicas por productos vencidos y la pérdida de la ventana de canje con distribuidores</strong>.</p>
-          <p>A diferencia de un ERP pesado que exige pistolear cada producto en caja, AlDía opera con visión computacional: el bodeguero toma foto a su guía de remisión física y el sistema activa un <strong>semáforo preventivo</strong> que le avisa cuándo pedir el canje gratuito a proveedores como Bimbo o Gloria.</p>
-          <p>Para captar usuarios diseñamos un <strong>Embudo de Conversión Multicanal</strong>: en el <strong>ToFU</strong>, Facebook genera conciencia del dolor; en el <strong>MoFU</strong>, la Landing Page muestra la calculadora de ahorro; y en el <strong>BoFU</strong>, se produce la conversión primaria con el clic en 'Descargar App'."</p>
+          <p>"Para entender la analítica, primero debemos conocer el negocio. En el Perú, las bodegas y minimarkets bajo el régimen NRUS pierden entre <strong>350 y 600 soles mensuales</strong> en mercadería vencida simplemente porque pierden la ventana de canje con proveedores como Bimbo, Gloria o distribuidores de embutidos.</p>
+          <p>Los sistemas POS tradicionales fracasan en este rubro porque en hora punta un bodeguero no tiene tiempo de pistolear cada producto. <strong>AlDía</strong> soluciona esto con visión artificial: el comerciante le toma una foto a la guía de remisión física y el aplicativo crea un <strong>semáforo de alertas automáticas</strong> que le avisa 8 días antes cuándo vence el plazo de canje.</p>
+          <p>Para captar a estos comerciantes y medir su interés, diseñamos un <strong>Embudo de Conversión Multicanal</strong> de tres etapas:<br>
+          1. <strong>Top of Funnel (Atracción en Facebook):</strong> Generamos conciencia del dolor sobre pérdidas por mermas.<br>
+          2. <strong>Middle of Funnel (Consideración en la Landing Page):</strong> Aterrizan en nuestra web en GitHub Pages para explorar la propuesta y la calculadora de ahorro.<br>
+          3. <strong>Bottom of Funnel (Conversión Final):</strong> La micro-conversión primaria: el clic en el botón CTA para <strong>'Descargar App'</strong> o activar la prueba gratuita de 14 días."</p>
         `,
         3: `
-          <span class="cue">[Lámina 3: Landing Page en WordPress · 1:45 - 3:00 min]</span>
-          <p>"Cumpliendo con la rúbrica del curso, desplegamos la Landing Page sobre <strong>GitHub Pages</strong> bajo arquitectura <strong>Jamstack</strong> servida desde CDN global de alta disponibilidad (<code>https://dreyeles.github.io/Proyecto_ALdia/</code>), garantizando carga en menos de 800ms en redes móviles.</p>
-          <p>La arquitectura de la página se diseñó bajo el principio clásico <strong>AIDA</strong>:</p>
-          <p>• <strong>Atención:</strong> Con el titular emocional <em>'Deja de botar plata por productos vencidos'</em>.<br>
-          • <strong>Interés:</strong> Con el mockup interactivo del smartphone y sus alertas de canje preventivo.<br>
-          • <strong>Deseo:</strong> Mediante una calculadora donde el bodeguero calcula cuánto dinero rescata al mes.<br>
-          • <strong>Acción:</strong> El botón principal <strong>CTA ('Quiero probarlo gratis / Descargar App')</strong> visible inmediatamente en el primer pantallazo ('above the fold') sin necesidad de hacer scroll, tanto en computadoras como en celulares."</p>
+          <span class="cue">[Lámina 3: Landing Page en GitHub Pages · 1:45 - 2:45 min]</span>
+          <p>"En la arquitectura web tomamos una decisión de ingeniería estratégica. Descartamos hostings compartidos tradicionales con WordPress porque sufren de lentitud en bases de datos MySQL y caídas por límites de memoria PHP. En su lugar, desplegamos la Landing Page en <strong>GitHub Pages</strong> bajo arquitectura <strong>Jamstack: JavaScript, APIs y Markup</strong>.</p>
+          <p>Nuestra web está 100% activa en producción en el dominio oficial: <strong><code>https://dreyeles.github.io/Proyecto_ALdia/</code></strong> con certificado SSL HTTPS nativo.</p>
+          <p>Elegimos esta infraestructura por tres razones determinantes:<br>
+          1. <strong>Velocidad Sub-Segundo:</strong> Carga en menos de <strong>800 milisegundos</strong> en redes móviles 3G/4G, evitando el rebote prematuro.<br>
+          2. <strong>Disponibilidad del 99.9% en CDN Global:</strong> Sin caídas de base de datos ni límites de CPU.<br>
+          3. <strong>Estructura AIDA Responsiva:</strong> Diseño móvil optimizado 'Above the fold': el titular y el botón de acción principal son visibles sin hacer scroll."</p>
         `,
         4: `
-          <span class="cue">[Lámina 4: Google Site Kit & GA4 · 3:00 - 4:15 min]</span>
-          <p>"Para la recolección científica de datos, la rúbrica exige telemetría oficial. Implementamos el plugin oficial <strong>Google Site Kit</strong> en WordPress.</p>
-          <p>¿Por qué Site Kit? Porque inyecta las etiquetas oficiales en el encabezado sin alterar archivos PHP del tema, garantizando estabilidad ante actualizaciones.</p>
-          <p>Conectamos dos plataformas:<br>
-          1. <strong>Google Analytics 4 (GA4):</strong> Con ID de medición <code>G-84W4NXCRFJ</code>. GA4 opera bajo un modelo de <strong>Eventos y Parámetros</strong>, superando el antiguo esquema de páginas vistas.<br>
-          2. <strong>Google Search Console:</strong> Para monitorear la indexación y consultas de búsqueda orgánica.<br>
-          Asimismo, configuramos la capa <code>dataLayer</code> para rastrear micro-interacciones como clics de descarga y uso de la calculadora."</p>
+          <span class="cue">[Lámina 4: Telemetría con GA4 Nativo · 2:45 - 4:00 min]</span>
+          <p>"Para la captura científica de métricas, integramos <strong>Google Analytics 4</strong> de forma nativa mediante la librería oficial <code>gtag.js</code>, vinculada a nuestro flujo con ID de medición <strong><code>G-84W4NXCRFJ</code></strong>.</p>
+          <p>Al inyectar la etiqueta directamente en el código fuente, eliminamos intermediarios que ralentizan la web y tenemos <strong>control total sobre la capa de datos (<code>window.dataLayer</code>)</strong>.</p>
+          <p>Estructuramos la medición en el modelo de <strong>Eventos y Parámetros</strong> de GA4:<br>
+          • <strong>Evento Maestro:</strong> <code>click_cta_download</code>, al presionar el botón de descarga.<br>
+          • <strong>Eventos de Consideración:</strong> Interacciones con el simulador de vencimientos y la calculadora de ahorro.<br>
+          • <strong>Medición Mejorada (Enhanced Measurement):</strong> Vistas de página, clics salientes y profundidad de desplazamiento (scroll depth al 25%, 50% y 90%)."</p>
         `,
         5: `
-          <span class="cue">[Lámina 5: Fanpage en Facebook · 4:15 - 5:30 min]</span>
-          <p>"Como canal orgánico de atracción social, creamos la <strong>Fanpage oficial en Facebook: 'AlDía Perú – App para Bodegas'</strong>.</p>
-          <p>Elegimos Facebook porque nuestro Buyer Persona (dueños de minimarkets de 30 a 55 años) utiliza activamente esta red social y participa en grupos comerciales vecinales.</p>
-          <p>La página cuenta con identidad corporativa y el botón de llamada a la acción configurado como <strong>'Usar aplicación'</strong> apuntando a nuestra web. En las publicaciones compartimos infografías sobre políticas de canje de proveedores y enlaces con parámetros UTM para registrar en Google Analytics exactamente qué posts generan más visitas."</p>
+          <span class="cue">[Lámina 5: Fanpage en Facebook · 4:00 - 5:15 min]</span>
+          <p>"Para alimentar la parte superior de nuestro embudo (ToFU), activamos el canal de atracción social: <strong>nuestra Fanpage oficial en Facebook 'AlDía Perú – App para Bodegas'</strong>.</p>
+          <p>Facebook es el canal idóneo porque nuestro Buyer Persona (dueños de bodegas de 30 a 55 años en distritos como SJL, Comas o Los Olivos) participa activamente en grupos de comercio minorista.</p>
+          <p>En la Fanpage configuramos el botón CTA <strong>'Visitar sitio web'</strong> hacia GitHub Pages y una estrategia de contenidos sobre el dolor de canjes con proveedores (Bimbo y Gloria) con enlaces UTM.</p>
+          <p>En nuestra prueba inicial en Meta Business Suite registramos: <strong>780 impresiones totales</strong>, <strong>450 cuentas alcanzadas</strong>, <strong>52 interacciones</strong> (34 likes, 11 comentarios, 7 compartidos) y <strong>22 clics salientes en el enlace</strong> que iniciaron el tráfico hacia la landing page."</p>
         `,
         6: `
-          <span class="cue">[Lámina 6: KPIs de la Web (Rúbrica Clave) · 5:30 - 7:00 min]</span>
-          <p>"Llegamos a uno de los puntos clave evaluados: <strong>la selección y sustentación técnica de los KPIs de la Landing Page</strong>. Descartamos métricas de vanidad y priorizamos indicadores de negocio:</p>
-          <p>1. <strong>Usuarios y Sesiones:</strong> Mide el volumen real de comerciantes alcanzados.<br>
-          2. <strong>Tasa de Interacción (Engagement Rate) en GA4:</strong> En GA4 reemplaza al antiguo 'rebote'. Considera interactuadas las sesiones que duran más de 10 segundos o generan una conversión. Nuestra meta es superar el 60%.<br>
-          3. <strong>Tiempo Medio de Interacción:</strong> Revela si el bodeguero leyó la propuesta y usó la calculadora de ahorro.<br>
-          4. <strong>Tasa de Conversión a Descarga (CR) – NUESTRO KPI MAESTRO:</strong> (Clics en Descargar / Total de Sesiones) * 100. En el sector SaaS B2B, un benchmark saludable es entre 3% y 7%.<br>
-          5. <strong>Canales de Adquisición:</strong> Evalúa el peso del tráfico Social frente al Directo y Orgánico."</p>
+          <span class="cue">[Lámina 6: KPIs de la Web (Rúbrica Clave) · 5:15 - 6:45 min]</span>
+          <p>"Llegamos a la rúbrica técnica medular: <strong>la definición y sustento de los KPIs para la Landing Page</strong>. Dejamos de lado métricas de vanidad y seleccionamos 5 KPIs con justificación analítica:</p>
+          <p>1. <strong>Usuarios Únicos y Sesiones:</strong> Evalúa el volumen neto de personas atraídas y la recurrencia.<br>
+          2. <strong>Tasa de Interacción (Engagement Rate) en GA4:</strong> En GA4 reemplaza al antiguo 'rebote'. Una sesión es interactuada si dura más de 10 segundos, genera un evento de conversión o visita múltiples pantallas. Meta: superar el 60%.<br>
+          3. <strong>Tiempo Medio de Interacción:</strong> Mide la retención real del mensaje y uso de la calculadora.<br>
+          4. <strong>Tasa de Conversión a Descarga (CR) – NUESTRO KPI MAESTRO:</strong> (Clics en Descargar / Sesiones Totales) * 100. En B2B micro-SaaS el benchmark es de 3% a 7%.<br>
+          5. <strong>Canales de Adquisición:</strong> Desglosa el porcentaje de tráfico derivado de Facebook frente a accesos directos."</p>
         `,
         7: `
-          <span class="cue">[Lámina 7: KPIs de Facebook · 7:00 - 8:15 min]</span>
-          <p>"En la Fanpage de Facebook evaluamos métricas mediante Meta Business Suite:</p>
-          <p>1. <strong>Alcance Orgánico:</strong> 450 cuentas únicas alcanzadas en grupos de bodegueros y minimarkets.<br>
-          2. <strong>Impresiones Totales:</strong> 780 impactos (frecuencia promedio de 1.73x).<br>
-          3. <strong>Tasa de Engagement:</strong> 11.55% (52 interacciones totales: 34 likes, 11 comentarios y 7 compartidos).<br>
-          4. <strong>CTR en Enlace Saliente (Outbound CTR) – EL KPI ESTRELLA:</strong> 2.82% con 22 clics directos hacia la landing page.</p>
-          <p>Un 'Me gusta' es una métrica de vanidad. Los 22 comerciantes que hicieron clic son los que demuestran interés genuino y alimentan la base de conversión de la web."</p>
+          <span class="cue">[Lámina 7: KPIs de Facebook · 6:45 - 8:00 min]</span>
+          <p>"Para la Fanpage de Facebook establecimos los KPIs cuantitativos homólogos medidos en Meta Business Suite:</p>
+          <p>1. <strong>Alcance Orgánico (Reach):</strong> 450 cuentas únicas alcanzadas en grupos comerciales.<br>
+          2. <strong>Impresiones Totales:</strong> 780 visualizaciones del post (frecuencia de 1.73 impactos por persona).<br>
+          3. <strong>Tasa de Engagement del Post:</strong> 11.55% producto de 52 interacciones debatiendo las mermas.<br>
+          4. <strong>CTR en Enlace Saliente (Outbound CTR) – EL KPI ESTRELLA:</strong> 2.82% con 22 clics directos hacia la landing page (dentro del benchmark B2B de 1.5% a 3.2%).</p>
+          <p>Aplicamos el principio analítico: un 'Me gusta' es una métrica de vanidad que no genera ingresos. Los 22 comerciantes que hicieron clic en el enlace demuestran intención real y alimentan el embudo de conversión."</p>
         `,
         8: `
-          <span class="cue">[Lámina 8: Resultados Iniciales · 8:15 - 9:30 min]</span>
-          <p>"A continuación mostramos la evidencia empírica de telemetría registrada en nuestro panel oficial de <strong>Google Analytics 4 (ID: G-84W4NXCRFJ)</strong>:</p>
-          <p>• Como observan en la captura en pantalla, logramos un registro de <strong>8 usuarios activos simultáneos en tiempo real</strong>, con presencia confirmada de <strong>Perú (3 usuarios)</strong> y pruebas de red internacional.<br>
-          • Se registraron eventos de desplazamiento (scroll), interacción con el bot interactivo y visitas completas al Hero Section.<br>
-          • Al contrastar ambos canales: De los 22 clics generados en Facebook, Google Analytics 4 registró con precisión 20 sesiones en la web (una efectividad de redirección del 90.9%).<br>
-          • Los usuarios dedicaron una media de 1m 32s explorando el simulador de vencimientos y 3 de ellos completaron la conversión haciendo clic en el CTA de descarga, logrando una Tasa de Conversión (CR) de tráfico social del 15.0%."</p>
+          <span class="cue">[Lámina 8: Resultados Iniciales y Comparativa · 8:00 - 9:15 min]</span>
+          <p>"Presentamos la evidencia empírica que valida la <strong>sincronía técnica entre ambos canales</strong>:</p>
+          <p>• En la captura real de <strong>Google Analytics 4 (ID: G-84W4NXCRFJ)</strong> observan <strong>8 usuarios activos simultáneos en tiempo real</strong>, con 3 usuarios concentrados en Perú dentro de nuestro público objetivo.<br>
+          • Al cruzar los datos: de los <strong>22 clics generados en Facebook</strong>, GA4 registró con precisión <strong>20 sesiones en la web</strong> (una efectividad de redirección del 90.9%).<br>
+          • <strong>Retención en la Web:</strong> Permanencia media de <strong>1 minuto y 32 segundos</strong> explorando la solución.<br>
+          • <strong>Conversión Final (CR):</strong> Se registraron <strong>3 eventos de conversión</strong> en el botón CTA procedentes de este tráfico, logrando una <strong>Tasa de Conversión Web del 15.0%</strong>.<br>
+          • El embudo funcionó de punta a punta: 450 alcanzados → 22 clics → 20 sesiones en GA4 → 3 conversiones."</p>
         `,
         9: `
-          <span class="cue">[Lámina 9: Conclusiones y Próximos Pasos · 9:30 - 10:30 min]</span>
-          <p>"Para cerrar la presentación de este primer avance, destacamos las siguientes <strong>Conclusiones</strong>:</p>
-          <p>1. <strong>Excelencia de la Arquitectura Jamstack:</strong> Demostramos que alojar la landing en <strong>GitHub Pages con GA4 nativo</strong> ofrece un desempeño superior a un hosting tradicional: velocidad sub-segundo, costo cero y alta disponibilidad.<br>
-          2. <strong>Trazabilidad Validada:</strong> El flujo de datos entre la etiqueta y el panel de GA4 opera sin pérdidas.<br>
-          3. <strong>Dificultades Superadas:</strong> Mitigamos los límites de memoria de 128MB del hosting gratuito optimizando imágenes a formato WebP y aplicando caché.</p>
-          <p>Para el <strong>Avance 2</strong>, implementaremos experimentos de <strong>Pruebas A/B</strong> en el color y texto del botón CTA, y construiremos un <strong>Dashboard automatizado en Looker Studio</strong> unificando GA4 con Meta Insights."</p>
+          <span class="cue">[Lámina 9: Conclusiones y Próximos Pasos · 9:15 - 10:15 min]</span>
+          <p>"Para cerrar este primer avance evaluativo, presentamos tres conclusiones y nuestra hoja de ruta:</p>
+          <p>1. <strong>Validación de la Arquitectura Jamstack:</strong> Alojar en GitHub Pages con GA4 nativo es técnicamente superior a un hosting tradicional: carga sub-segundo (&lt;800ms), 99.9% de disponibilidad, costo cero y despliegue continuo con Git.<br>
+          2. <strong>Trazabilidad Validada:</strong> La capa dataLayer transmite los eventos en tiempo real sin latencias ni pérdidas.<br>
+          3. <strong>Complementariedad Multicanal:</strong> Facebook atrae el volumen ToFU y la Landing Page retiene y convierte.</p>
+          <p>Para el <strong>Avance 2</strong> ejecutaremos <strong>Pruebas A/B</strong> en el botón CTA y construiremos un <strong>Dashboard interactivo en Looker Studio</strong> unificando GA4 con Meta Insights."</p>
         `,
         10: `
-          <span class="cue">[Lámina 10: Cierre y Preguntas · 10:30 - 11:00 min]</span>
-          <p>"Agradecemos su atención, profesor y compañeros. Con esto concluimos la exposición del Avance 1 del Grupo 7 y quedamos a su entera disposición para responder las preguntas que considere pertinentes."</p>
-          <p><em>[Tener a la vista las respuestas técnicas a las 3 preguntas del docente preparadas en la lámina].</em></p>
+          <span class="cue">[Lámina 10: Cierre y Preguntas · 10:15 - 11:00 min]</span>
+          <p>"Agradezco sinceramente su tiempo y atención, profesor y compañeros. Con esto doy por concluida la sustentación del Avance 1 de nuestro equipo y quedo a su entera disposición para responder las preguntas que tenga a bien realizar. Muchas gracias."</p>
+          <p><em>[Consultar el banco de 4 respuestas técnicas ante preguntas del docente].</em></p>
         `
       };
 
