@@ -12,7 +12,7 @@ def create_presentation():
     blank_layout = prs.slide_layouts[6]
 
     # =========================================================================
-    # OFICIAL PALETTE: AlDía (https://dreyeles.github.io/Proyecto_ALdia/)
+    # OFICIAL PALETTE: AlDía (https://aldia-peru.vercel.app/)
     # =========================================================================
     COLOR_YELLOW = RGBColor(255, 213, 74)     # #FFD54A (Hero Yellow)
     COLOR_CREAM = RGBColor(255, 246, 224)     # #FFF6E0 (Background Cream)
@@ -91,7 +91,7 @@ def create_presentation():
         ftf.word_wrap = True
         ftf.margin_left = ftf.margin_top = ftf.margin_right = ftf.margin_bottom = 0
         fp = ftf.paragraphs[0]
-        fp.text = "AlDía · Análisis de Datos Web · Zegel 2026-II  |  Grupo 7  |  https://dreyeles.github.io/Proyecto_ALdia/"
+        fp.text = "AlDía · Análisis de Datos Web · Zegel 2026-II  |  Grupo 7  |  https://aldia-peru.vercel.app/"
         fp.font.size = Pt(9.5)
         fp.font.color.rgb = COLOR_MUTED if bg_color == COLOR_CREAM else COLOR_DARK
 
@@ -145,7 +145,7 @@ def create_presentation():
 
     bullets_s1 = [
         ("Propuesta Central:", " AlDía te avisa a tiempo para canjear con tu proveedor o rematar antes de que venza. Sin inventarios complicados."),
-        ("Landing Page en GitHub Pages:", " Despliegue Jamstack oficial en https://dreyeles.github.io/Proyecto_ALdia/."),
+        ("Landing Page en GitHub Pages:", " Despliegue Jamstack oficial en https://aldia-peru.vercel.app/."),
         ("Google Analytics 4 Nativo:", " Conexión directa mediante gtag.js y capa dataLayer (ID: G-84W4NXCRFJ)."),
         ("Atracción Social Multicanal:", " Fanpage oficial en Facebook ('AlDía Perú') para derivar tráfico al embudo.")
     ]
@@ -293,7 +293,7 @@ def create_presentation():
     p.font.size = Pt(12)
     p.font.color.rgb = COLOR_DARK
     p2 = tf3.add_paragraph()
-    p2.text = "Despliegue oficial en https://dreyeles.github.io/Proyecto_ALdia/ con SSL HTTPS nativo. Carga en <800ms en celulares 3G/4G, alta disponibilidad 99.9% y cero límites de memoria PHP."
+    p2.text = "Despliegue oficial en https://aldia-peru.vercel.app/ con SSL HTTPS nativo. Carga en <800ms en celulares 3G/4G, alta disponibilidad 99.9% y cero límites de memoria PHP."
     p2.font.size = Pt(10.5)
     p2.font.color.rgb = COLOR_MUTED
 
@@ -482,7 +482,7 @@ def create_presentation():
 
     p = tf_post.add_paragraph()
     p.space_before = Pt(8)
-    p.text = "👉 Probar AlDía Gratis (https://dreyeles.github.io/Proyecto_ALdia/)"
+    p.text = "👉 Probar AlDía Gratis (https://aldia-peru.vercel.app/)"
     p.font.bold = True
     p.font.size = Pt(10)
     p.font.color.rgb = COLOR_TERRACOTTA

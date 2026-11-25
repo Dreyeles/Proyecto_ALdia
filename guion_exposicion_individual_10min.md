@@ -5,7 +5,7 @@
 * **Hito:** Sesión 05 – Avance 1 Grupal
 * **Modalidad:** **Expositor Único (Presentación Individual Fluida)**
 * **Proyecto:** **AlDía** – Micro-SaaS para Control de Vencimientos en Pequeños Comercios
-* **Infraestructura Real:** Landing Page en GitHub Pages (`https://dreyeles.github.io/Proyecto_ALdia/`) + Google Analytics 4 Nativo (`G-84W4NXCRFJ`) + Fanpage de Facebook ("AlDía Perú")
+* **Infraestructura Real:** Landing Page en GitHub Pages (`https://aldia-peru.vercel.app/`) + Google Analytics 4 Nativo (`G-84W4NXCRFJ`) + Fanpage de Facebook ("AlDía Perú")
 * **Duración:** 10:30 a 11:00 minutos cronometrados
 
 ---
@@ -75,7 +75,7 @@ CRONOGRAMA DE TIEMPOS POR DIAPOSITIVA (TOTAL: 10:45 min)
 
 > *"En la arquitectura web tomamos una decisión de ingeniería estratégica. Evaluamos hostings compartidos tradicionales como InfinityFree o AccuWeb, pero los descartamos porque sufren de lentitud en bases de datos MySQL y caídas por límites de memoria PHP. En su lugar, desplegamos la Landing Page en **GitHub Pages** bajo arquitectura **Jamstack: JavaScript, APIs y Markup**.*
 > 
-> *Nuestra web está 100% activa en producción en el dominio oficial: **`https://dreyeles.github.io/Proyecto_ALdia/`**, con certificado de seguridad SSL HTTPS nativo.*
+> *Nuestra web está 100% activa en producción en el dominio oficial: **`https://aldia-peru.vercel.app/`**, con certificado de seguridad SSL HTTPS nativo.*
 > 
 > *Elegimos esta infraestructura por tres razones analíticas determinantes:*
 > 1. * **Velocidad de Carga Sub-Segundo:** La web carga en menos de **800 milisegundos**. Para un bodeguero que navega desde su celular con datos móviles 3G o 4G en su local, una web ultrarrápida es la diferencia entre que explore la solución o abandone la página.*
@@ -228,3 +228,4 @@ Si el docente te hace preguntas al finalizar, mantén la calma y responde con es
 > *"Excelente observación, profesor. Eso se debe a la arquitectura de doble procesamiento de Google Analytics 4:*  
 > *La capa de Tiempo Real opera en streaming continuo, por eso ya registra con éxito a nuestros 8 usuarios activos en los últimos 30 minutos.*  
 > *Sin embargo, la capa de Informes Estándar y el Data Warehouse de GA4 procesan los datos históricos en lotes (batch ETL) que toman entre 24 y 48 horas de latencia para consolidar dimensiones y modelos de atribución. Al cumplirse las primeras 24 horas del despliegue, el banner desaparece automáticamente y se pueblan los informes consolidados. Esto demuestra que la telemetría está 100% activa y transmitiendo."*
+

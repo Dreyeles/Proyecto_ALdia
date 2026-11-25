@@ -63,7 +63,7 @@
 > *"[Avanzar a Lámina 3]*  
 > *En la dimensión de infraestructura técnica, tomamos una decisión de ingeniería web clave: en lugar de utilizar un hosting tradicional compartido con WordPress (que suele saturarse por límites de memoria y pausas de inactividad), desplegamos la Landing Page en **GitHub Pages** bajo arquitectura **Jamstack (JavaScript, APIs y Markup)**.*
 > 
-> *Dominio oficial en producción: **`https://dreyeles.github.io/Proyecto_ALdia/`** con certificado SSL HTTPS activo.*
+> *Dominio oficial en producción: **`https://aldia-peru.vercel.app/`** con certificado SSL HTTPS activo.*
 > 
 > *¿Por qué esta decisión técnica?*
 > 1. * **Velocidad de Carga Insuperable:** La página carga en menos de **800 milisegundos**. Para nuestro arquetipo de bodeguero que navega desde un celular con datos móviles 3G o 4G en su negocio, una página rápida evita el abandono inmediato.*
